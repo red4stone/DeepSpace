@@ -1,0 +1,10 @@
+package frc.gamepad;
+
+public enum AxisCode {
+	LEFTSTICKX,
+	LEFTSTICKY,
+	RIGHTSTICKX,
+	RIGHTSTICKY,
+	LEFTTRIGGER,
+	RIGHTTRIGGER
+}
