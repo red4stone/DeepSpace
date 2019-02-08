@@ -63,14 +63,14 @@ public class AutonomousRightScaleRightPositionCommand extends CommandGroup {
     	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 45, .012, .75));
     	
     	addSequential(new ArmExtendFullyCommand());
-    	addParallel(new IntakeWheelPullCommand());
+    	addParallel(new CargoWheelPullCommand());
     	
     	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveFromScaleToSwitchCubeAngledInches,
     			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
     			Calibrations.drivingForward,
     			10));
     	
-    	addSequential(new IntakeWheelStopCommand());
+    	addSequential(new CargoWheelStopCommand());
     	addSequential(new ArmRetractFullyCommand());
     	
     	*/

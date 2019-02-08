@@ -32,13 +32,10 @@ public class ElevatorSubsystem extends Subsystem {
 	
 	public ElevatorSubsystem() {
 		this.elevatorMotor = new TalonSRX(RobotMap.elevatorMotor);
-		this.elevatorMotor.config_kP(2, 9, 9);
 		this.encoder = new Encoder(RobotMap.elevatorEncoder1, RobotMap.elevatorEncoder2);
 		this.retractedLimitSwitch = new BufferedDigitalInput(RobotMap.RetractionLimitSwitch);
 		this.extendedLimitSwitch = new BufferedDigitalInput(RobotMap.ExtendedLimitSwitch);
 		this._targetEncoderPosition = Calibrations.elevatorLiftEncoderMinimumValue;
-		
-		
 	}
 	
 	public void setTargetEncoderPosition(int position) {
@@ -46,8 +43,6 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new ElevatorHoldPositionCommand());
     } 
     
@@ -116,7 +111,8 @@ public class ElevatorSubsystem extends Subsystem {
     	// Measure speed of elevator
     	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderRate", encoder.getRate());
     	// Measure power sent to elevator
-    	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderExpectedPower", _expectedPower);
+		PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderExpectedPower", _expectedPower);
+		
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitSwitchAndEncoderAgreeRetracted", this.encoderAndLimitsMatchRetracted());
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitSwitchAndEncoderAgreeExtended", this.encoderAndLimitsMatchExtended());
     }

@@ -8,8 +8,8 @@ import frc.robot.commands.arm.ArmRetractFullyCommand;
 import frc.robot.commands.elevator.ElevatorExtendFullyCommand;
 import frc.robot.commands.elevator.ElevatorMoveToHeightCommand;
 import frc.robot.commands.elevator.ElevatorRetractFullyCommand;
-import frc.robot.commands.intake.IntakeWheelStopCommand;
-import frc.robot.commands.intake.IntakeWheelsSpitCommand;
+import frc.robot.commands.cargointake.CargoWheelStopCommand;
+import frc.robot.commands.cargointake.CargoWheelsSpitCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -26,8 +26,8 @@ public class ScoreOnScaleCommandGroup extends CommandGroup {
     	addSequential(new ArmExtendToHighScaleCommand());
     	// addSequential(new ElevatorExtendFullyCommand());
     	
-    	addSequential(new IntakeWheelsSpitCommand(AutonomousCalibrations.AutonomousScaleIntakeSpitPowerMagnitude));
-    	addSequential(new IntakeWheelStopCommand());
+    	addSequential(new CargoWheelsSpitCommand(AutonomousCalibrations.AutonomousScaleCargoSpitPowerMagnitude));
+    	addSequential(new CargoWheelStopCommand());
     	
     	addSequential(new ArmRetractFullyCommand());
     	addSequential(new ElevatorRetractFullyCommand());

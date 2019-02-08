@@ -14,16 +14,16 @@ public class ControlsMap {
 	
 	// Button pad
 	// Operation controller
-	public static final int fuelIntakeCollectButton = 6;
-	public static final int fuelIntakeReverseButton = 7;
+	public static final int fuelCargoCollectButton = 6;
+	public static final int fuelCargoReverseButton = 7;
 	public static final int fuelPumpPumpButton = 3;
 	public static final int fuelPumpReverseButton = 4;
 	public static final int shooterRevButton = 5;
 	public static final int shooterShootButton = 5;
 	// public static final int shooterStopButton = 4;
 	// public static final int shooterOverrideShootButton = 5;
-	public static final int gearIntakeExtendButton = 4;
-	// public static final int gearIntakeRetractButton = 5;
+	public static final int gearCargoExtendButton = 4;
+	// public static final int gearCargoRetractButton = 5;
 	public static final int gearCarriageExtendButton = 2;
 	public static final int gearCarriageRetractButton = 1;
 	public static final int climberClimbButton = 3;
@@ -32,16 +32,16 @@ public class ControlsMap {
 	// Xbox controller
 	
 	// Operation controller
-	public static final int fuelIntakeCollectButton = 1;
-	public static final int fuelIntakeReverseButton = 2;
+	public static final int fuelCargoCollectButton = 1;
+	public static final int fuelCargoReverseButton = 2;
 	public static final int fuelPumpPumpButton = 3;
 	public static final int fuelPumpReverseButton = 4;
 	public static final int shooterRevButton = 9;
 	public static final int shooterShootButton = 9;
 	// public static final int shooterStopButton = 4;
 	// public static final int shooterOverrideShootButton = 5;
-	public static final int gearIntakeExtendButton = 6;
-	// public static final int gearIntakeRetractButton = 5;
+	public static final int gearCargoExtendButton = 6;
+	// public static final int gearCargoRetractButton = 5;
 	public static final AxisCode elevatorExtendButton = AxisCode.LEFTSTICKY;
 	public static final AxisCode elevatorRetractButton = AxisCode.LEFTSTICKY;
 	public static final int climberClimbButton = 10;

@@ -30,16 +30,16 @@ public class OperationPanel2 {
 		case ARMRETRACT:
 			buttonNumber = 3;
 			break;
-		case INTAKEOVERRIDE:
+		case CARGOOVERRIDE:
 			buttonNumber = 4;
 			break;
-		case INTAKESPIT:
+		case CARGOSPIT:
 			buttonNumber = 5;
 			break;
-		case INTAKEDROP:
+		case CARGODROP:
 			buttonNumber = 6;
 			break;
-		case RUNINTAKE:
+		case RUNCARGO:
 			buttonNumber = 7;
 			break;
 		default:

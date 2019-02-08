@@ -4,7 +4,7 @@ import frc.ravenhardware.BufferedDigitalInput;
 import frc.robot.Calibrations;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.intake.IntakeWheelStopCommand;
+import frc.robot.commands.cargointake.CargoWheelStopCommand;
 import frc.util.PCDashboardDiagnostics;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -17,16 +17,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class IntakeWheelSubsystem extends Subsystem {
-	TalonSRX intakeMotorRight;
-	TalonSRX intakeMotorLeft;
-	BufferedDigitalInput intakeSensor;
+public class CargoWheelSubsystem extends Subsystem {
+	TalonSRX cargoMotorRight;
+	TalonSRX cargoMotorLeft;
+	BufferedDigitalInput cargoSensor;
 	private Timer _hasCubeDurationTimer = new Timer();
 		
-	public IntakeWheelSubsystem() {
-		this.intakeMotorLeft = new TalonSRX(RobotMap.intakeMotorLeft);
-		this.intakeMotorRight = new TalonSRX(RobotMap.intakeMotorRight);
-		this.intakeSensor = new BufferedDigitalInput(RobotMap.intakeSensor);
+	public CargoWheelSubsystem() {
+		this.cargoMotorLeft = new TalonSRX(RobotMap.cargoMotorLeft);
+		this.cargoMotorRight = new TalonSRX(RobotMap.cargoMotorRight);
+		this.cargoSensor = new BufferedDigitalInput(RobotMap.cargoSensor);
 		_hasCubeDurationTimer.start();
 	}
 	
@@ -36,11 +36,11 @@ public class IntakeWheelSubsystem extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-       setDefaultCommand(new IntakeWheelStopCommand());
+       setDefaultCommand(new CargoWheelStopCommand());
     }
     
     public void pull() {
-		this.pull(Calibrations.intakeWheelSuckPowerMagnitude); 
+		this.pull(Calibrations.cargoWheelSuckPowerMagnitude); 
 	}
     
     public void pull(double magnitude) { 
@@ -52,7 +52,7 @@ public class IntakeWheelSubsystem extends Subsystem {
 	}
     
     public void push() {
-		this.push(Calibrations.IntakeDropPowerMagnitude); 
+		this.push(Calibrations.CargoDropPowerMagnitude); 
 	}
     
     public void push(double magnitude) {
@@ -68,28 +68,28 @@ public class IntakeWheelSubsystem extends Subsystem {
 	}
     
     private void set(double magnitude) {
-    	// System.out.println("Setting intake motors: " + magnitude);
+    	// System.out.println("Setting cargo motors: " + magnitude);
     	double leftMotorMagnitude = -1 * magnitude;
     	double rightMotorMagnitude = magnitude;
     	
-    	PCDashboardDiagnostics.SubsystemNumber("IntakeWheel", "MotorLeftOutputPercent", leftMotorMagnitude);
-    	PCDashboardDiagnostics.SubsystemNumber("IntakeWheel", "MotorRightOutputPercent", rightMotorMagnitude);
-    	intakeMotorLeft.set(ControlMode.PercentOutput, leftMotorMagnitude);
-    	intakeMotorRight.set(ControlMode.PercentOutput, rightMotorMagnitude);
+    	PCDashboardDiagnostics.SubsystemNumber("CargoWheel", "MotorLeftOutputPercent", leftMotorMagnitude);
+    	PCDashboardDiagnostics.SubsystemNumber("CargoWheel", "MotorRightOutputPercent", rightMotorMagnitude);
+    	cargoMotorLeft.set(ControlMode.PercentOutput, leftMotorMagnitude);
+    	cargoMotorRight.set(ControlMode.PercentOutput, rightMotorMagnitude);
     }
     
     public boolean hasCube() {
     	boolean otherLimit = false;
-    	boolean hasCube = intakeSensor.get() == false;
+    	boolean hasCube = cargoSensor.get() == false;
     	
-    	return Robot.OVERRIDE_SYSTEM_INTAKE.getIsAtLimit(hasCube, otherLimit);
+    	return Robot.OVERRIDE_SYSTEM_CARGO.getIsAtLimit(hasCube, otherLimit);
     }
     
     public void periodic() {
-    	intakeSensor.maintainState();
+    	cargoSensor.maintainState();
     	
-    	PCDashboardDiagnostics.SubsystemBoolean("IntakeWheel", "HasCube", this.hasCube());
-    	PCDashboardDiagnostics.SubsystemBoolean("IntakeWheel", "HasCubeSensorRaw", intakeSensor.get());
+    	PCDashboardDiagnostics.SubsystemBoolean("CargoWheel", "HasCube", this.hasCube());
+    	PCDashboardDiagnostics.SubsystemBoolean("CargoWheel", "HasCubeSensorRaw", cargoSensor.get());
     	
     	if (this.hasCube() == false) {
     		_hasCubeDurationTimer.reset();

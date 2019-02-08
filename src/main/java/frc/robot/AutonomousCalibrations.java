@@ -53,10 +53,10 @@ public class AutonomousCalibrations {
 	public static final double AutonomousDriveRightScalePosition1ThirdDriveForwardInches = 193;
 	
 
-	public static final double AutonomousScoreSwitchIntakePushPowerMagnitude = .5;
-	public static final double AutonomousGrabCubeIntakePullPowerMagnitude = 1;
+	public static final double AutonomousScoreSwitchCargoPushPowerMagnitude = .5;
+	public static final double AutonomousGrabCubeCargoPullPowerMagnitude = 1;
 	
-	public static final double AutonomousScaleIntakeSpitPowerMagnitude = 1;
+	public static final double AutonomousScaleCargoSpitPowerMagnitude = 1;
 
 	
 	public static final double AutonomousArmExtensionPowerMagnitude = .3;

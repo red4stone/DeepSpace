@@ -57,14 +57,14 @@ public class AutonomousLeftScaleLeftPositionCommand extends CommandGroup {
     	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -45, .012, .75));
     	
     	addSequential(new ArmExtendFullyCommand());
-    	addParallel(new IntakeWheelPullCommand());
+    	addParallel(new CargoWheelPullCommand());
     	
     	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveFromScaleToSwitchCubeAngledInches,
     			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
     			Calibrations.drivingForward,
     			10));
     	
-    	addSequential(new IntakeWheelStopCommand());
+    	addSequential(new CargoWheelStopCommand());
     	addSequential(new ArmRetractFullyCommand());
     	
     	*/
@@ -79,7 +79,7 @@ public class AutonomousLeftScaleLeftPositionCommand extends CommandGroup {
     	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleApproachScaleInches,
     			AutonomousCalibrations.AutonomousCrossAutoLineDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
-    	addSequential(new IntakeWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
+    	addSequential(new CargoWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchCargoPushPowerMagnitude));
     	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleApproachScaleInches,
     			AutonomousCalibrations.AutonomousCrossAutoLineDriveForwardPowerMagnitude,
     			Calibrations.drivingBackward));

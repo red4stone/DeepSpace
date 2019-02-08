@@ -28,15 +28,14 @@ import frc.robot.commands.elevator.ElevatorExtendWhileHeldCommand;
 import frc.robot.commands.elevator.ElevatorMoveToHeightCommand;
 import frc.robot.commands.elevator.ElevatorRetractFullyCommand;
 import frc.robot.commands.elevator.ElevatorRetractWhileHeldCommand;
-import frc.robot.commands.intake.IntakeWheelPullCommand;
-import frc.robot.commands.intake.IntakeWheelPushHardCommand;
-import frc.robot.commands.intake.IntakeWheelPushSoftCommand;
+import frc.robot.commands.cargointake.CargoWheelPullCommand;
+import frc.robot.commands.cargointake.CargoWheelPushHardCommand;
+import frc.robot.commands.cargointake.CargoWheelPushSoftCommand;
 import frc.robot.commands.misc.SetOverride1Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.IntakeClampSubsystem;
-import frc.robot.subsystems.IntakeWheelSubsystem;
+import frc.robot.subsystems.CargoWheelSubsystem;
 import frc.robot.subsystems.ProgrammableLEDSubsystem;
 import frc.robot.subsystems.LightSubsystem;
 import frc.util.LoggerOverlord;
@@ -83,8 +82,7 @@ public class Robot extends TimedRobot {
 	public static final DriveTrainSubsystem DRIVE_TRAIN_SUBSYSTEM = new DriveTrainSubsystem();
 	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
 	public static final ArmSubsystem ARM_SUBSYSTEM = new ArmSubsystem();
-	public static final IntakeClampSubsystem INTAKE_CLAMP_SUBSYSTEM = new IntakeClampSubsystem();
-	public static final IntakeWheelSubsystem INTAKE_WHEEL_SUBSYSTEM = new IntakeWheelSubsystem();
+	public static final CargoWheelSubsystem CARGO_WHEEL_SUBSYSTEM = new CargoWheelSubsystem();
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
 	public static final ProgrammableLEDSubsystem LED_SUBSYSTEM = new ProgrammableLEDSubsystem();
 	
@@ -106,7 +104,7 @@ public class Robot extends TimedRobot {
 	public static final OverrideSystem OVERRIDE_SYSTEM_ARM_EXTEND = new OverrideSystem();
 	public static final OverrideSystem OVERRIDE_SYSTEM_ELEVATOR_RETRACT = new OverrideSystem();
 	public static final OverrideSystem OVERRIDE_SYSTEM_ARM_RETRACT = new OverrideSystem();
-	public static final OverrideSystem OVERRIDE_SYSTEM_INTAKE = new OverrideSystem();
+	public static final OverrideSystem OVERRIDE_SYSTEM_CARGO = new OverrideSystem();
 	
 	public static final Solenoid ARM_HOLD_BACK = new Solenoid(RobotMap.armHoldBackSolenoid);
 
@@ -446,18 +444,18 @@ public class Robot extends TimedRobot {
 		
 		
 		// CZB Shepherd Friday: stealing this button to make a one-press, elevator to high scale button.
-		OPERATION_PANEL2.getButton(ButtonCode.INTAKEOVERRIDE).whenPressed(new ArmExtendToHighScaleCommand());
-		OPERATION_PANEL2.getButton(ButtonCode.INTAKEOVERRIDE).whenPressed(new ElevatorExtendFullyCommand());		
+		OPERATION_PANEL2.getButton(ButtonCode.CARGOOVERRIDE).whenPressed(new ArmExtendToHighScaleCommand());
+		OPERATION_PANEL2.getButton(ButtonCode.CARGOOVERRIDE).whenPressed(new ElevatorExtendFullyCommand());		
 		
 		
-		OPERATION_PANEL2.getButton(ButtonCode.INTAKEDROP).whileHeld(new IntakeWheelPushSoftCommand());
-		//OPERATION_PANEL2.getButton(ButtonCode.INTAKEOVERRIDE).whileHeld(new IntakeWheelPullCommand());
-		//OPERATION_PANEL2.getButton(ButtonCode.INTAKEOVERRIDE).whenPressed(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_INTAKE, true));
-		//OPERATION_PANEL2.getButton(ButtonCode.INTAKEOVERRIDE).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_INTAKE, false));
-		OPERATION_PANEL2.getButton(ButtonCode.INTAKESPIT).whileHeld(new IntakeWheelPushHardCommand());
-		OPERATION_PANEL2.getButton(ButtonCode.RUNINTAKE).whileHeld(new IntakeWheelPullCommand());
+		OPERATION_PANEL2.getButton(ButtonCode.CARGODROP).whileHeld(new CargoWheelPushSoftCommand());
+		//OPERATION_PANEL2.getButton(ButtonCode.CARGOOVERRIDE).whileHeld(new CargoWheelPullCommand());
+		//OPERATION_PANEL2.getButton(ButtonCode.CARGOOVERRIDE).whenPressed(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_CARGO, true));
+		//OPERATION_PANEL2.getButton(ButtonCode.CARGOOVERRIDE).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_CARGO, false));
+		OPERATION_PANEL2.getButton(ButtonCode.CARGOSPIT).whileHeld(new CargoWheelPushHardCommand());
+		OPERATION_PANEL2.getButton(ButtonCode.RUNCARGO).whileHeld(new CargoWheelPullCommand());
 		
-		//PCDashboardDiagnostics.SubsystemBoolean("Elevator", "RUNINTAKE", OPERATION_PANEL.getButtonValue(ButtonCode.ELEVATORRETRACT));		
+		//PCDashboardDiagnostics.SubsystemBoolean("Elevator", "RUNCARGO", OPERATION_PANEL.getButtonValue(ButtonCode.ELEVATORRETRACT));		
 	}
 
 	/**

@@ -1,19 +1,16 @@
-package frc.robot.commands.intake;
+package frc.robot.commands.cargointake;
 
-import frc.robot.subsystems.IntakeClampSubsystem;
+import frc.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class IntakeClampOpenCommand extends Command {
-	IntakeClampSubsystem intakeClampSubsystem;
-	
-    public IntakeClampOpenCommand(IntakeClampSubsystem IntakeClampSubsystem) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(IntakeClampSubsystem);
+public class CargoWheelStopCommand extends Command {
+
+    public CargoWheelStopCommand () {
+    	requires(Robot.CARGO_WHEEL_SUBSYSTEM);
     }
 
     // Called just before this Command runs the first time
@@ -22,16 +19,17 @@ public class IntakeClampOpenCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	intakeClampSubsystem.open();
+    	Robot.CARGO_WHEEL_SUBSYSTEM.stop();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.CARGO_WHEEL_SUBSYSTEM.stop();
     }
 
     // Called when another command which requires one or more of the same

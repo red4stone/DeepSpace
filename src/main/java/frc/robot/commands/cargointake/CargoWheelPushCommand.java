@@ -1,4 +1,4 @@
-package frc.robot.commands.intake;
+package frc.robot.commands.cargointake;
 
 import frc.robot.Robot;
 
@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeWheelPushCommand extends Command {
+public class CargoWheelPushCommand extends Command {
 
-    public IntakeWheelPushCommand() {
-        requires(Robot.INTAKE_WHEEL_SUBSYSTEM);
+    public CargoWheelPushCommand() {
+        requires(Robot.CARGO_WHEEL_SUBSYSTEM);
     }
 
     // Called just before this Command runs the first time
@@ -19,8 +19,8 @@ public class IntakeWheelPushCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.INTAKE_WHEEL_SUBSYSTEM.push();
-    	//System.out.println("IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();");
+    	Robot.CARGO_WHEEL_SUBSYSTEM.push();
+    	//System.out.println("CargoWheelSubsystem.push();CargoWheelSubsystem.push();CargoWheelSubsystem.push();CargoWheelSubsystem.push();CargoWheelSubsystem.push();CargoWheelSubsystem.push();CargoWheelSubsystem.push();CargoWheelSubsystem.push();CargoWheelSubsystem.push();");
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -30,7 +30,7 @@ public class IntakeWheelPushCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	// Robot.INTAKE_WHEEL_SUBSYSTEM.stop();
+    	// Robot.CARGO_WHEEL_SUBSYSTEM.stop();
     }
 
     // Called when another command which requires one or more of the same

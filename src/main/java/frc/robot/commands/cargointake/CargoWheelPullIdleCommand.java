@@ -1,17 +1,17 @@
-package frc.robot.commands.intake;
+package frc.robot.commands.cargointake;
 
 
-import frc.robot.subsystems.IntakeWheelSubsystem;
+import frc.robot.subsystems.CargoWheelSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeWheelPullIdleCommand extends Command{
+public class CargoWheelPullIdleCommand extends Command{
 	
-	IntakeWheelSubsystem intakeWheelSubsystem;
+	CargoWheelSubsystem cargoWheelSubsystem;
 	
-	public IntakeWheelPullIdleCommand(IntakeWheelSubsystem intakeWheelSubsystem) {
-    	requires(intakeWheelSubsystem);
-    	this.intakeWheelSubsystem = intakeWheelSubsystem;
+	public CargoWheelPullIdleCommand(CargoWheelSubsystem cargoWheelSubsystem) {
+    	requires(cargoWheelSubsystem);
+    	this.cargoWheelSubsystem = cargoWheelSubsystem;
     }
 
 
@@ -21,7 +21,7 @@ public class IntakeWheelPullIdleCommand extends Command{
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	intakeWheelSubsystem.idle();
+    	cargoWheelSubsystem.idle();
     }
 
     // Make this return true when this Command no longer needs to run execute()

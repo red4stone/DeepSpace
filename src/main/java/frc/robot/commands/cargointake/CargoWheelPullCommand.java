@@ -1,4 +1,4 @@
-package frc.robot.commands.intake;
+package frc.robot.commands.cargointake;
 
 import frc.robot.Robot;
 
@@ -7,23 +7,23 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeWheelPullCommand extends Command {
+public class CargoWheelPullCommand extends Command {
 
-    public IntakeWheelPullCommand () {
-         requires(Robot.INTAKE_WHEEL_SUBSYSTEM); 
+    public CargoWheelPullCommand () {
+         requires(Robot.CARGO_WHEEL_SUBSYSTEM); 
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(Robot.INTAKE_WHEEL_SUBSYSTEM.hasCube() == false) {
+    	if(Robot.CARGO_WHEEL_SUBSYSTEM.hasCube() == false) {
     		// new LowerElevatorThenExtendArmCommandGroup().start();
     	}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.INTAKE_WHEEL_SUBSYSTEM.pull();
-    	System.out.println("IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();");
+    	Robot.CARGO_WHEEL_SUBSYSTEM.pull();
+    	System.out.println("CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();");
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -33,12 +33,12 @@ public class IntakeWheelPullCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	// Robot.INTAKE_WHEEL_SUBSYSTEM.stop();
+    	// Robot.CARGO_WHEEL_SUBSYSTEM.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.INTAKE_WHEEL_SUBSYSTEM.stop();
+    	Robot.CARGO_WHEEL_SUBSYSTEM.stop();
     }
 }

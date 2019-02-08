@@ -1,7 +1,15 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package frc.robot;
 
-public final class Calibrations {
-	// Drive calibration
+public class Calibrations2019 {
+
+    // DRIVE TRAIN
 	// Slew rate of .2 seems to work well for when the lift is lowered, though more testing
 	// is necessary - might turn it up or down slightly for increased performance.
 	// public static final double slewRate = .2;
@@ -53,7 +61,7 @@ public final class Calibrations {
 	//public static final int defaultGyroMode = Calibrations.gyroDisabled;
 	
 	
-	// Drive encoders
+	// DRIVE ENCODERS
 	// The *3 is for low gear. In high gear, it would just be 4096. Run all autonomous modes in low gear.
 	public static final int encoderCUI103CyclesPerRevolution = 4096 * 3;
 	// public static final int encoderE4TCyclesPerRevolution = 360;
@@ -73,95 +81,43 @@ public final class Calibrations {
 	
 	// Adjust max power based on elevator height
 	public static final double DRIVETRAIN_MAXPOWER_AT_MAX_ELEVEATOR_HEIGHT = .4;
+    
+
+    //ELEVATOR
+    public static final double kP = 12.0;
+    public static final double kI = 0.0;
+    public static final double kD = 170.0;
+
+    public static final double elevatorHoldPositionPowerMagnitude = -.075;
 	
-	// Elevator 
-	public static final double elevatorExtensionPowerMagnitude = .86; //was .82
-	public static final double elevatorRetractionPowerMagnitude = .66;
-	// public static final double elevatorRetractionPowerMagnitude = .1;
-	public static final double elevatorMaximumSpeed = 1.0;
-	//public static final double elevatorHoldPositionPowerMagnitude = .15;
+	public static final int elevatorEncoderMinimumValue = 0;
+    public static final int elevatorEncoderMaximumValue = 27000;
+
+    public static final int elevatorLowHatchEncoderValue = 4000;
+    public static final int elevatorMidHatchEncoderValue = 18000;
+    public static final int elevatorHighHatchEncoderValue = 24000;
+
+    public static final int elevatorCargoShipPortEncoderValue = 24000;
+    public static final int elevatorLowRocketPortEncoderValue = 24000;
+    public static final int elevatorMidRocketPortEncoderValue = 24000;
+    public static final int elevatorHighRocketPortEncoderValue = 24000;
+
+    // The safety margin is how far away from the end of travel the encoders will stop the lift.
+	// At low speeds (max of .3), and a lift max value of 30k, 1500 maxes out the elevator.
+	// At higher speeds, a higher value is needed because the elevator will overshoot the target until we have PID.
 	
-	// Was .1 with motor before constant force springs were added. Setting to 0. (CZB 3/27)
-	public static final double elevatorHoldPositionPowerMagnitude = -.075;
-	
-	public static final int elevatorLiftEncoderMinimumValue = 0;
-	// 28k on practice robot - 26900 on comp
-	// static final int elevatorLiftEncoderMaximumValue = 28000;
-	
-	public static final int elevatorLiftEncoderMaximumValue = 27000;
-	
+	public static final int elevatorLiftUpwardSafetyMargin = 1300;
+	public static final int elevatorLiftDownwardSafetyMargin = 700;
+	public static final int ELEVATOR_AT_POSITION_BUFFER = 500;
 	
 	public static final double elevatorConsideredMovingEncoderRate = 0;
 	
-	public static final int elevatorMidwayEncoderValue = 21000;
-	public static final int elevatorSwitchEncoderValue = 13000;
-	public static final int ELEVATOR_AT_POSITION_BUFFER = 500;
-	public static final double ELEVATOR_MOVE_TO_POSITION_TIMEOUT = 2;
-	
-	// 
-	public static final double elevatorCubePickupMaximumHeight = 15;
+    public static final double ELEVATOR_MOVE_TO_POSITION_TIMEOUT = 2;
+    public static final double ELEVATOR_SAFETY_TIMER_TIMEOUT = 3.5;
 	
 	public static final int elevatorInchesToEncoderTicksConversionValue = 411;
-	public static final int elevatorInchesToEncoderTicksOffsetValue = 10;
+    public static final int elevatorInchesToEncoderTicksOffsetValue = 10;
+	
 
-	
-	// The safety margin is how far away from the end of travel the encoders will stop the lift.
-	// At low speeds (max of .3), and a lift max value of 30k, 1500 maxes out the elevator.
-	// At higher speeds, a higher value is needed because the elevator will overshoot the target until we have PID.
-	//public static final int elevatorLiftUpwardSafetyMargin = 2500;
-	public static final int elevatorLiftUpwardSafetyMargin = 1300;
-	
-	//public static final int elevatorLiftDownwardSafetyMargin = 1500;
-	public static final int elevatorLiftDownwardSafetyMargin = 700;
-	
-	public static final double ELEVATOR_SAFETY_TIMER_TIMEOUT = 3.5;
-	
-	
-	
-	
-	
-	//Cargo Wheel
-	public static final double cargoWheelSuckPowerMagnitude = 1;
-	public static final double CargoDropPowerMagnitude = .3;
-	
-	public static final double AXIS_IS_PRESSED_VALUE = .25;
-
-	public static final double CargoSpitTimer = .6;
-	public static final double CargoSpitPowerMagnitude = 1;
-
-	
-	
-	
-	// Lighting
-	public static double lightingFlashTotalDurationMs = 1000;
-	public static double lightingFlashes = 10;
-	
-	//camera quality
-	public static final int cameraQuality = 50;
-	
-	public static double armExtensionPowerMagnitude = 1;
-	public static double armRetractionPowerMagnitude = 1;
-	public static double armMaximumSpeed = 1;
-	public static double armHoldPositionPowerMagnitude = 0.04;
-
-	// practice robot: 14.3k
-	// public static int armEncoderValueExtended = 14300;
-	
-	// comp robot: 14.2k
-	public static int armEncoderValueExtended = 12000;
-	
-	public static int armEncoderValueMidway = 7300;
-	public static int armEncoderValueRetracted = 0;
-	public static int ARM_ENCODER_BUFFER = 300;
-	
-	// This value represents the buffer that the arm can be *on either side* of midway,
-	// so the true buffer range is this value times two.
-	//public static int ARM_MIDWAY_SINGLE_SIDE_BUFFER = 300;
-	public static int armEncoderValueHighScale = 3600;
-	public static final double ARM_SAFETY_TIMER_TIMEOUT = 2;
-
-	//limelight distance constants
-	public static final double FLOOR_TO_LIMELIGHT_LENS_HEIGHT = 6.5;
-	public static final double FLOOR_TO_TARGET_CENTER_HEIGHT = 28.0;
-	public static final double CAMERA_ANGLE_OFFSET_FROM_HORIZONTAL = 9.36;
+    //ARM
 }

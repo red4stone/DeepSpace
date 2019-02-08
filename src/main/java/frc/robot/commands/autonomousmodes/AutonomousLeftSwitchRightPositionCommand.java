@@ -8,7 +8,7 @@ import frc.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
 import frc.robot.commands.drivetrain.DriveTrainStopCommand;
 import frc.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
 import frc.robot.commands.elevator.ElevatorMoveToHeightCommand;
-import frc.robot.commands.intake.IntakeWheelsSpitCommand;
+import frc.robot.commands.cargointake.CargoWheelsSpitCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -32,7 +32,7 @@ addSequential(new DriveTrainStopCommand());
 		// addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
 		addSequential(new ElevatorMoveToHeightCommand(Calibrations.elevatorSwitchEncoderValue));
 		addSequential(new ArmExtendFullyCommand());
-		addSequential(new IntakeWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
+		addSequential(new CargoWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchCargoPushPowerMagnitude));
 	}
 
 }
