@@ -8,12 +8,12 @@ import frc.robot.commands.LED.LEDCommand;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class LEDSubsystem extends Subsystem{
+public class ProgrammableLEDSubsystem extends Subsystem{
 	
 	public static final Gamepad CONTROLLER = Robot.OPERATION_CONTROLLER;
 	public LightLink led;
 	
-	public LEDSubsystem() {
+	public ProgrammableLEDSubsystem() {
 		this.led = new LightLink();
 	}
 	

@@ -37,7 +37,7 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeClampSubsystem;
 import frc.robot.subsystems.IntakeWheelSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.ProgrammableLEDSubsystem;
 import frc.robot.subsystems.LightSubsystem;
 import frc.util.LoggerOverlord;
 import frc.util.OverrideSystem;
@@ -86,7 +86,7 @@ public class Robot extends TimedRobot {
 	public static final IntakeClampSubsystem INTAKE_CLAMP_SUBSYSTEM = new IntakeClampSubsystem();
 	public static final IntakeWheelSubsystem INTAKE_WHEEL_SUBSYSTEM = new IntakeWheelSubsystem();
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
-	public static final LEDSubsystem LED_SUBSYSTEM = new LEDSubsystem();
+	public static final ProgrammableLEDSubsystem LED_SUBSYSTEM = new ProgrammableLEDSubsystem();
 	
 	public static final Relay HAS_CUBE_LEDS_RELAY = new Relay(RobotMap.hasCubeLEDLightRelay);
 	public static final Relay UNDERGLOW_RELAY = new Relay(RobotMap.underglowLightRelay);
