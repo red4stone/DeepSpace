@@ -30,7 +30,7 @@ public class AutonomousLeftSwitchLeftPositionCommand extends CommandGroup{
 				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
 		addSequential(new DriveTrainStopCommand());
-		addSequential(new ElevatorMoveToHeightCommand(Calibrations.elevatorSwitchEncoderValue));
+		addSequential(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidHatchEncoderValue));
 		addSequential(new ArmExtendFullyCommand());
 		addSequential(new CargoWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchCargoPushPowerMagnitude));
 	}

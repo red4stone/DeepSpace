@@ -21,7 +21,7 @@ public class CargoWheelPushSoftCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.CARGO_WHEEL_SUBSYSTEM.push(Calibrations.CargoDropPowerMagnitude);
+    	Robot.CARGO_WHEEL_SUBSYSTEM.push(Calibrations.cargoDropPowerMagnitude);
     	//System.out.println("CargoWheelSubsystem.push();CargoWheelSubsystem.push();CargoWheelSubsystem.push();CargoWheelSubsystem.push();CargoWheelSubsystem.push();CargoWheelSubsystem.push();CargoWheelSubsystem.push();CargoWheelSubsystem.push();CargoWheelSubsystem.push();");
     }
 

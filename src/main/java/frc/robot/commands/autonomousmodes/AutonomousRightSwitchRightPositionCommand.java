@@ -27,7 +27,7 @@ addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.StraightSw
 
 addSequential(new DriveTrainStopCommand());
 
-addSequential(new ElevatorMoveToHeightCommand(Calibrations.elevatorSwitchEncoderValue));
+addSequential(new ElevatorMoveToHeightCommand(Calibrations.elevatorCargoShipPortEncoderValue));
 addSequential(new ArmExtendFullyCommand());
 addSequential(new CargoWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchCargoPushPowerMagnitude));
 	}

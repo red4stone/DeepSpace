@@ -20,7 +20,7 @@ public class ElevatorExtendFullyCommand extends Command {
     	System.out.println("ElevatorExtendCommand init");
     	Robot.ELEVATOR_SUBSYSTEM.resetSafetyTimer();
     	Robot.ELEVATOR_SUBSYSTEM.startSafetyTimer();
-    	Robot.ELEVATOR_SUBSYSTEM.setTargetEncoderPosition(Calibrations.elevatorLiftEncoderMaximumValue);
+    	Robot.ELEVATOR_SUBSYSTEM.setTargetEncoderPosition(Calibrations.elevatorEncoderMaximumValue);
     }
 
     // Called repeatedly when this Command is scheduled to run

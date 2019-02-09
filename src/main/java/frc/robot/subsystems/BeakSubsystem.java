@@ -8,17 +8,30 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Solenoid;
+import frc.robot.commands.beak.BeakReleaseHatchPanelCommand;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
 public class BeakSubsystem extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+  Solenoid beak = new Solenoid(RobotMap.beakSolenoid);
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
+
+    public void initDefaultCommand() {
+      // Set the default command for a subsystem here.
+      //setDefaultCommand(new MySpecialCommand());
+      setDefaultCommand(new BeakReleaseHatchPanelCommand());
+    }
+    
+    public void release() {
+    	beak.set(false);
+    }
+    
+    public void capture() {
+      beak.set(true);
   }
 }

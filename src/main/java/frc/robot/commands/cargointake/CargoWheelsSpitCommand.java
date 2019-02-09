@@ -32,7 +32,7 @@ public class CargoWheelsSpitCommand extends Command{
     protected boolean isFinished() {
     	boolean isFinished = false;
     	
-    	if (durationTimer.get() > Calibrations.CargoSpitTimer) {
+    	if (durationTimer.get() > Calibrations.cargoSpitTimer) {
     		isFinished = true;
     	}
     	

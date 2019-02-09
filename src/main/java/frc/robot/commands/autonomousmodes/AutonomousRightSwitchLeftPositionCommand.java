@@ -29,7 +29,7 @@ public class AutonomousRightSwitchLeftPositionCommand extends CommandGroup{
 
 addSequential(new DriveTrainStopCommand());
 		// addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
-		addSequential(new ElevatorMoveToHeightCommand(Calibrations.elevatorSwitchEncoderValue));
+		addSequential(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidHatchEncoderValue));
 		addSequential(new ArmExtendFullyCommand());
 		addSequential(new CargoWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchCargoPushPowerMagnitude));
 	}

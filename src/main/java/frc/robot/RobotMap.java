@@ -38,16 +38,11 @@ public class RobotMap {
 	public static final String cameraName = "cam0";
 	
 	// Cargo System 
-	public static final int cargoMotorLeft = 5;
-	public static final int cargoMotorRight = 7;
-	public static final int leftCargoClampSolenoid = 2;
-	public static final int rightCargoClampSolenoid = 3;
+	public static final int cargoMotor = 5;
+	public static final int beakSolenoid = 2;
 
 	public static final int cargoSensor = 5;
 	
 	// Arm System
 	public static final int armMotor = 4;
-	
-	public static final int armHoldBackSolenoid = 6;
-	
 }

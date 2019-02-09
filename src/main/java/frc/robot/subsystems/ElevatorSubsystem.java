@@ -1,5 +1,13 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.ravenhardware.BufferedDigitalInput;
 import frc.robot.Calibrations;
 import frc.robot.Robot;
@@ -7,35 +15,33 @@ import frc.robot.RobotMap;
 import frc.robot.commands.elevator.ElevatorHoldPositionCommand;
 import frc.robot.commands.elevator.ElevatorStopCommand;
 import frc.util.PCDashboardDiagnostics;
+import frc.robot.TalonSRXConstants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- *
- */
 public class ElevatorSubsystem extends Subsystem {
-	public TalonSRX elevatorMotor;
+  public TalonSRX elevatorMotor;
 	BufferedDigitalInput extendedLimitSwitch;
 	BufferedDigitalInput retractedLimitSwitch;
 	Encoder encoder;
 	private Timer _safetyTimer = new Timer();
 	private int _targetEncoderPosition;
-	private double _expectedPower;
+  private double _expectedPower; 
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-	
 	public ElevatorSubsystem() {
 		this.elevatorMotor = new TalonSRX(RobotMap.elevatorMotor);
 		this.encoder = new Encoder(RobotMap.elevatorEncoder1, RobotMap.elevatorEncoder2);
 		this.retractedLimitSwitch = new BufferedDigitalInput(RobotMap.RetractionLimitSwitch);
 		this.extendedLimitSwitch = new BufferedDigitalInput(RobotMap.ExtendedLimitSwitch);
-		this._targetEncoderPosition = Calibrations.elevatorLiftEncoderMinimumValue;
+    this._targetEncoderPosition = Calibrations.elevatorEncoderMinimumValue;
+    this.elevatorMotor.config_kF(TalonSRXConstants.kPIDLoopIdx, Calibrations.elevatorkF, TalonSRXConstants.kTimeoutMs);
+    this.elevatorMotor.config_kP(TalonSRXConstants.kPIDLoopIdx, Calibrations.elevatorkP, TalonSRXConstants.kTimeoutMs);
+    this.elevatorMotor.config_kI(TalonSRXConstants.kPIDLoopIdx, Calibrations.elevatorkI, TalonSRXConstants.kTimeoutMs);
+    this.elevatorMotor.config_kD(TalonSRXConstants.kPIDLoopIdx, Calibrations.elevatorkD, TalonSRXConstants.kTimeoutMs);
 	}
 	
 	public void setTargetEncoderPosition(int position) {
@@ -44,38 +50,8 @@ public class ElevatorSubsystem extends Subsystem {
 	
     public void initDefaultCommand() {
     	setDefaultCommand(new ElevatorHoldPositionCommand());
-    } 
-    
-    public void extend() {
-		this.extend(Calibrations.elevatorExtensionPowerMagnitude); 
-	}
-    
-    public void extend(double magnitude) {
-    	if (this.getIsAtExtensionLimit()) {
-    		this.stop();
-    	}
-    	else {
-        	this.set(magnitude);	
-    	}
-	}
-    
-    public void retract() {
-		this.retract(Calibrations.elevatorRetractionPowerMagnitude); 
-	}
-    
-    public void retract(double magnitude) {
-    	if (this.getIsAtRetractionLimit()) {
-    		this.stop();
-    	}
-    	else {
-    		this.set(-1 * magnitude);
-    	}
-	}
-    
-    public void stop() {
-		this.set(0);
-	}
-    
+    }  
+   
     public void getPosition() {
     	System.out.print("Elevator Position: " + this.getEncoderPosition());
     }
@@ -120,11 +96,11 @@ public class ElevatorSubsystem extends Subsystem {
     public boolean encoderAndLimitsMatchRetracted() {
     	boolean match = true;
     	
-		if(this.getEncoderPosition() < Calibrations.elevatorLiftEncoderMinimumValue  && this.getRetractionLimitSwitchValue() == false) {
+		if(this.getEncoderPosition() < Calibrations.elevatorEncoderMinimumValue  && this.getRetractionLimitSwitchValue() == false) {
 			match = false;
 		}
 		 
-		if(this.getRetractionLimitSwitchValue() == true && this.getEncoderPosition() > Calibrations.elevatorLiftEncoderMinimumValue + Calibrations.elevatorLiftDownwardSafetyMargin) {
+		if(this.getRetractionLimitSwitchValue() == true && this.getEncoderPosition() > Calibrations.elevatorEncoderMinimumValue + Calibrations.elevatorLiftDownwardSafetyMargin) {
 			match = false;
 		}
 		
@@ -134,11 +110,11 @@ public class ElevatorSubsystem extends Subsystem {
     public boolean encoderAndLimitsMatchExtended() {
     	boolean match = true;
     	
-		if(this.getEncoderPosition() > Calibrations.elevatorLiftEncoderMaximumValue  && this.getExtendedLimitSwitchValue() == false) {
+		if(this.getEncoderPosition() > Calibrations.elevatorEncoderMaximumValue  && this.getExtendedLimitSwitchValue() == false) {
 			match = false;
 		}
 		 
-		if(this.getExtendedLimitSwitchValue() == true && this.getEncoderPosition() < Calibrations.elevatorLiftEncoderMaximumValue - Calibrations.elevatorLiftUpwardSafetyMargin) {
+		if(this.getExtendedLimitSwitchValue() == true && this.getEncoderPosition() < Calibrations.elevatorEncoderMaximumValue - Calibrations.elevatorLiftUpwardSafetyMargin) {
 			match = false;
 		}
 		
@@ -171,36 +147,11 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     public void resetEncodersToRetractedLimit() {
-    	this.elevatorMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMinimumValue, 0, 0);
+    	this.elevatorMotor.setSelectedSensorPosition(Calibrations.elevatorEncoderMinimumValue, 0, 0);
     }
     
     public void resetEncodersToExtendedLimit() {
-    	this.elevatorMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMaximumValue, 0, 0);
-    }
-    
-    private void set(double magnitude) {
-    	// System.out.println(rightMotor.get);
-    	magnitude = Math.min(magnitude, 1);
-    	magnitude = Math.max(magnitude, -1);
-    	magnitude *= Calibrations.elevatorMaximumSpeed;
-    	
-    	if (getIsAtExtensionLimit() == true && Math.signum(magnitude) == 1) {
-    		magnitude = 0;
-    	}
-    	if (getIsAtRetractionLimit() == true && Math.signum(magnitude) == -1) {
-    		magnitude = 0;
-    	}
-    	
-    	_expectedPower = magnitude;
-    	
-    	this.setMotors(magnitude);
-    	// leftMotor.set(ControlMode.PercentOutput, -1 * magnitude);
-    	
-    }
-    
-    private void setMotors(double magnitude) {
-    	PCDashboardDiagnostics.SubsystemNumber("Elevator", "MotorOutputPercent", magnitude);
-    	elevatorMotor.set(ControlMode.PercentOutput, magnitude);
+    	this.elevatorMotor.setSelectedSensorPosition(Calibrations.elevatorEncoderMaximumValue, 0, 0);
     }
     
     public void setMotorsPID(int position) {
@@ -243,7 +194,7 @@ public class ElevatorSubsystem extends Subsystem {
     public boolean isEncoderAtExtensionLimit() {
     	boolean encoderLimit = false;
     	
-    	if (this.getEncoderPosition() >= Calibrations.elevatorLiftEncoderMaximumValue - Calibrations.elevatorLiftUpwardSafetyMargin) {
+    	if (this.getEncoderPosition() >= Calibrations.elevatorEncoderMaximumValue - Calibrations.elevatorLiftUpwardSafetyMargin) {
     		encoderLimit = true;
     	}
     	
@@ -253,7 +204,7 @@ public class ElevatorSubsystem extends Subsystem {
     public boolean isEncoderAtRetractionLimit() {
     	boolean encoderLimit = false;
     	
-    	if (this.getEncoderPosition() <= Calibrations.elevatorLiftEncoderMinimumValue + Calibrations.elevatorLiftDownwardSafetyMargin) {
+    	if (this.getEncoderPosition() <= Calibrations.elevatorEncoderMinimumValue + Calibrations.elevatorLiftDownwardSafetyMargin) {
     		encoderLimit = true;
     	}
     	
@@ -278,14 +229,13 @@ public class ElevatorSubsystem extends Subsystem {
     	return isAtLimit;
     }
 
-	public void holdPosition() {
-		this.setMotors(Calibrations.elevatorHoldPositionPowerMagnitude);
-		
+	public void holdPosition(double magnitude) {
+		this.elevatorMotor.set(ControlMode.PercentOutput, magnitude);
 	}
 	
 	public double getElevatorHeightPercentage() {
-		double encoderMax = (double)Calibrations.elevatorLiftEncoderMaximumValue;
-		double encoderMin = (double)Calibrations.elevatorLiftEncoderMinimumValue;
+		double encoderMax = (double)Calibrations.elevatorEncoderMaximumValue;
+		double encoderMin = (double)Calibrations.elevatorEncoderMinimumValue;
 		double encoderCurrent = this.getElevatorPosition();
 		
 		double heightPercentage = (encoderCurrent - encoderMin)/(encoderMax - encoderMin);
@@ -373,4 +323,3 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 
 }
-

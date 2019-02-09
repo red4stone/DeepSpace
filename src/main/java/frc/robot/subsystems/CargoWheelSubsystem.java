@@ -9,7 +9,6 @@ import frc.util.PCDashboardDiagnostics;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -18,16 +17,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class CargoWheelSubsystem extends Subsystem {
-	TalonSRX cargoMotorRight;
-	TalonSRX cargoMotorLeft;
+	TalonSRX cargoMotor;
 	BufferedDigitalInput cargoSensor;
-	private Timer _hasCubeDurationTimer = new Timer();
+	private Timer _hasCargoDurationTimer = new Timer();
 		
 	public CargoWheelSubsystem() {
-		this.cargoMotorLeft = new TalonSRX(RobotMap.cargoMotorLeft);
-		this.cargoMotorRight = new TalonSRX(RobotMap.cargoMotorRight);
+		this.cargoMotor = new TalonSRX(RobotMap.cargoMotor);
 		this.cargoSensor = new BufferedDigitalInput(RobotMap.cargoSensor);
-		_hasCubeDurationTimer.start();
+		_hasCargoDurationTimer.start();
 	}
 	
 
@@ -52,7 +49,7 @@ public class CargoWheelSubsystem extends Subsystem {
 	}
     
     public void push() {
-		this.push(Calibrations.CargoDropPowerMagnitude); 
+		this.push(Calibrations.cargoDropPowerMagnitude); 
 	}
     
     public void push(double magnitude) {
@@ -69,13 +66,10 @@ public class CargoWheelSubsystem extends Subsystem {
     
     private void set(double magnitude) {
     	// System.out.println("Setting cargo motors: " + magnitude);
-    	double leftMotorMagnitude = -1 * magnitude;
-    	double rightMotorMagnitude = magnitude;
+    	double MotorMagnitude = magnitude;
     	
-    	PCDashboardDiagnostics.SubsystemNumber("CargoWheel", "MotorLeftOutputPercent", leftMotorMagnitude);
-    	PCDashboardDiagnostics.SubsystemNumber("CargoWheel", "MotorRightOutputPercent", rightMotorMagnitude);
-    	cargoMotorLeft.set(ControlMode.PercentOutput, leftMotorMagnitude);
-    	cargoMotorRight.set(ControlMode.PercentOutput, rightMotorMagnitude);
+    	PCDashboardDiagnostics.SubsystemNumber("CargoWheel", "MotorOutputPercent", MotorMagnitude);
+    	cargoMotor.set(ControlMode.PercentOutput, MotorMagnitude);
     }
     
     public boolean hasCube() {
@@ -92,7 +86,7 @@ public class CargoWheelSubsystem extends Subsystem {
     	PCDashboardDiagnostics.SubsystemBoolean("CargoWheel", "HasCubeSensorRaw", cargoSensor.get());
     	
     	if (this.hasCube() == false) {
-    		_hasCubeDurationTimer.reset();
+    		_hasCargoDurationTimer.reset();
     	}
     	
     	if (this.hasCube()) {
@@ -104,7 +98,7 @@ public class CargoWheelSubsystem extends Subsystem {
     }
     
     private boolean hasCubePullTimeout() {
-    	return _hasCubeDurationTimer.get() > .5;
+    	return _hasCargoDurationTimer.get() > .5;
     }
 }
 

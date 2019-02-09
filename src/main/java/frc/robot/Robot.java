@@ -33,6 +33,7 @@ import frc.robot.commands.cargointake.CargoWheelPushHardCommand;
 import frc.robot.commands.cargointake.CargoWheelPushSoftCommand;
 import frc.robot.commands.misc.SetOverride1Command;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.BeakSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.CargoWheelSubsystem;
@@ -83,6 +84,7 @@ public class Robot extends TimedRobot {
 	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
 	public static final ArmSubsystem ARM_SUBSYSTEM = new ArmSubsystem();
 	public static final CargoWheelSubsystem CARGO_WHEEL_SUBSYSTEM = new CargoWheelSubsystem();
+	public static final BeakSubsystem BEAK_SUBSYSTEM = new BeakSubsystem();
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
 	public static final ProgrammableLEDSubsystem LED_SUBSYSTEM = new ProgrammableLEDSubsystem();
 	
@@ -105,8 +107,6 @@ public class Robot extends TimedRobot {
 	public static final OverrideSystem OVERRIDE_SYSTEM_ELEVATOR_RETRACT = new OverrideSystem();
 	public static final OverrideSystem OVERRIDE_SYSTEM_ARM_RETRACT = new OverrideSystem();
 	public static final OverrideSystem OVERRIDE_SYSTEM_CARGO = new OverrideSystem();
-	
-	public static final Solenoid ARM_HOLD_BACK = new Solenoid(RobotMap.armHoldBackSolenoid);
 
 	Command autonomousCommand;
 	
@@ -143,11 +143,6 @@ public class Robot extends TimedRobot {
 
 		// this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
-		
-		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kF(TalonSRXConstants.kPIDLoopIdx, 0.0, TalonSRXConstants.kTimeoutMs);
-		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kP(TalonSRXConstants.kPIDLoopIdx, 10.3, TalonSRXConstants.kTimeoutMs);
-		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kI(TalonSRXConstants.kPIDLoopIdx, 0.0, TalonSRXConstants.kTimeoutMs);
-		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kD(TalonSRXConstants.kPIDLoopIdx, 0.0, TalonSRXConstants.kTimeoutMs);
 	}
 
 	/**
@@ -333,7 +328,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		ARM_HOLD_BACK.set(true); // retract support solenoid
 		DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
 		DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetGyroAdjustmentScaleFactor();
 		// DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetOrientationGyro();
@@ -436,9 +430,9 @@ public class Robot extends TimedRobot {
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, false));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ElevatorExtendQuarterWithPIDCommand(this.ELEVATOR_SUBSYSTEM));
 		//OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ArmMoveToHeightCommand(6000));
-		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidwayEncoderValue));
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidRocketPortEncoderValue));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ArmMoveToHeightCommand(Calibrations.armEncoderValueMidway));
-		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorSwitchEncoderValue));
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidHatchEncoderValue));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ArmExtendFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ElevatorRetractFullyCommand());
 		
