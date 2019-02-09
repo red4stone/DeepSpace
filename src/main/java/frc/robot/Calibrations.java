@@ -121,6 +121,7 @@ public class Calibrations {
 	
 
 	//ARM
+	public static double armkF = 0.1;
 	public static double armkP = 1;
 	public static double armkI = 1;
 	public static double armkD= 1;

@@ -13,6 +13,7 @@ import frc.robot.Calibrations;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.elevator.ElevatorHoldPositionCommand;
+import frc.robot.commands.elevator.ElevatorStopCommand;
 import frc.util.PCDashboardDiagnostics;
 import frc.robot.TalonSRXConstants;
 
@@ -22,25 +23,25 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
 
-public class ElevatorSubsystem extends Subsystem {
-    public TalonSRX elevatorMotor;
+public class ElevatorSubsystemTest extends Subsystem {
+  public TalonSRX elevatorMotor;
 	BufferedDigitalInput extendedLimitSwitch;
 	BufferedDigitalInput retractedLimitSwitch;
 	Encoder encoder;
 	private Timer _safetyTimer = new Timer();
 	private int _targetEncoderPosition;
-    private double _expectedPower; 
+  private double _expectedPower; 
 
-	public ElevatorSubsystem() {
+	public ElevatorSubsystemTest() {
 		this.elevatorMotor = new TalonSRX(RobotMap.elevatorMotor);
 		this.encoder = new Encoder(RobotMap.elevatorEncoder1, RobotMap.elevatorEncoder2);
 		this.retractedLimitSwitch = new BufferedDigitalInput(RobotMap.RetractionLimitSwitch);
 		this.extendedLimitSwitch = new BufferedDigitalInput(RobotMap.ExtendedLimitSwitch);
-        this._targetEncoderPosition = Calibrations.elevatorEncoderMinimumValue;
-        this.elevatorMotor.config_kF(TalonSRXConstants.kPIDLoopIdx, Calibrations.elevatorkF, TalonSRXConstants.kTimeoutMs);
-        this.elevatorMotor.config_kP(TalonSRXConstants.kPIDLoopIdx, Calibrations.elevatorkP, TalonSRXConstants.kTimeoutMs);
-        this.elevatorMotor.config_kI(TalonSRXConstants.kPIDLoopIdx, Calibrations.elevatorkI, TalonSRXConstants.kTimeoutMs);
-        this.elevatorMotor.config_kD(TalonSRXConstants.kPIDLoopIdx, Calibrations.elevatorkD, TalonSRXConstants.kTimeoutMs);
+    this._targetEncoderPosition = Calibrations.elevatorEncoderMinimumValue;
+    this.elevatorMotor.config_kF(TalonSRXConstants.kPIDLoopIdx, Calibrations.elevatorkF, TalonSRXConstants.kTimeoutMs);
+    this.elevatorMotor.config_kP(TalonSRXConstants.kPIDLoopIdx, Calibrations.elevatorkP, TalonSRXConstants.kTimeoutMs);
+    this.elevatorMotor.config_kI(TalonSRXConstants.kPIDLoopIdx, Calibrations.elevatorkI, TalonSRXConstants.kTimeoutMs);
+    this.elevatorMotor.config_kD(TalonSRXConstants.kPIDLoopIdx, Calibrations.elevatorkD, TalonSRXConstants.kTimeoutMs);
 	}
 	
 	public void setTargetEncoderPosition(int position) {
@@ -131,7 +132,7 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     public void burnoutProtection() {
-    	ElevatorHoldPositionCommand command = new ElevatorHoldPositionCommand();
+    	ElevatorStopCommand command = new ElevatorStopCommand();
     	command.start();
     }
     
@@ -228,8 +229,8 @@ public class ElevatorSubsystem extends Subsystem {
     	return isAtLimit;
     }
 
-	public void holdPosition() {
-		this.elevatorMotor.set(ControlMode.PercentOutput, Calibrations.elevatorHoldPositionPowerMagnitude);
+	public void holdPosition(double magnitude) {
+		this.elevatorMotor.set(ControlMode.PercentOutput, magnitude);
 	}
 	
 	public double getElevatorHeightPercentage() {

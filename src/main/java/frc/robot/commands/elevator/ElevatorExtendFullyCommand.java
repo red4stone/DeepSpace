@@ -26,12 +26,12 @@ public class ElevatorExtendFullyCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (Robot.ELEVATOR_SUBSYSTEM.getIsAtExtensionLimit() == false) {
-    		//System.out.println("extending extending extending");
-    		Robot.ELEVATOR_SUBSYSTEM.extend();
+			Robot.ELEVATOR_SUBSYSTEM.setMotorsPID(Calibrations.elevatorEncoderMaximumValue);
+			//System.out.println("extending extending extending");
     	}
     	else {
-    		//System.out.println("stopping stopping stopping");
-    		Robot.ELEVATOR_SUBSYSTEM.stop();
+			Robot.ELEVATOR_SUBSYSTEM.holdPosition();
+			//System.out.println("stopping stopping stopping");
     	}
     }
 
@@ -52,7 +52,7 @@ public class ElevatorExtendFullyCommand extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.ELEVATOR_SUBSYSTEM.expectElevatorToBeAtExtensionLimit();
-    	Robot.ELEVATOR_SUBSYSTEM.stop();
+    	Robot.ELEVATOR_SUBSYSTEM.holdPosition();
     }
 
     // Called when another command which requires one or more of the same

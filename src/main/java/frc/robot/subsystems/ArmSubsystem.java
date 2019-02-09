@@ -1,3 +1,10 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package frc.robot.subsystems;
 
 import frc.ravenhardware.BufferedDigitalInput;
@@ -6,18 +13,14 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.arm.ArmHoldPositionCommand;
 import frc.util.PCDashboardDiagnostics;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.TalonSRXConstants;
 
-/**
- *
- */
 public class ArmSubsystem extends Subsystem {
-	TalonSRX armMotor;
+  TalonSRX armMotor;
 	BufferedDigitalInput extensionLimitSwitch;
 	BufferedDigitalInput retractionLimitSwitch;
 	private Timer _safetyTimer = new Timer();
@@ -25,7 +28,11 @@ public class ArmSubsystem extends Subsystem {
 	public ArmSubsystem() {
 		this.armMotor = new TalonSRX(RobotMap.armMotor);
 		this.retractionLimitSwitch = new BufferedDigitalInput(RobotMap.armRetractionLimitSwitch);
-		this.extensionLimitSwitch = new BufferedDigitalInput(RobotMap.armExtensionLimitSwitch);
+    this.extensionLimitSwitch = new BufferedDigitalInput(RobotMap.armExtensionLimitSwitch);
+    this.armMotor.config_kF(TalonSRXConstants.kPIDLoopIdx, Calibrations.armkF, TalonSRXConstants.kTimeoutMs);
+    this.armMotor.config_kP(TalonSRXConstants.kPIDLoopIdx, Calibrations.armkP, TalonSRXConstants.kTimeoutMs);
+    this.armMotor.config_kI(TalonSRXConstants.kPIDLoopIdx, Calibrations.armkI, TalonSRXConstants.kTimeoutMs);
+    this.armMotor.config_kD(TalonSRXConstants.kPIDLoopIdx, Calibrations.armkD, TalonSRXConstants.kTimeoutMs);
 	}
 
     public void initDefaultCommand() {
@@ -183,67 +190,8 @@ public class ArmSubsystem extends Subsystem {
     
     public void resetEncodersToExtendedLimit() {
     	this.armMotor.setSelectedSensorPosition(Calibrations.armEncoderValueExtended, 0, 0);
-    }
-    
-    /*
-    public void resetEncodersTopLimitSwitch() {
-    	boolean retractionLimitSwitchValue = false;
-    	if(retractionLimitSwitchValue = retractionLimitSwitch.get()) {
-    		this.resetEncodersToTop();
-    	}
-    }
-    
-    public void resetEncodersBottomLimitSwitch() {
-    	boolean extensionLimitSwitchValue = false;
-    	if(extensionLimitSwitchValue = retractionLimitSwitch.get()) {
-    		this.resetEncodersToBottom();
-    	}
-    }
-    */
-    
-    public void extend() {
-    	this.extend(Calibrations.armExtensionPowerMagnitude);
-    }
-    
-    public void extend(double magnitude) {
-    	if (this.getIsAtExtensionLimit()) {
-    		this.stop();
-    	}
-    	else {
-        	this.set(magnitude);
-    	}
-    }
-    
-    public void retract() {
-    	this.retract(Calibrations.armRetractionPowerMagnitude);
-    }
-    
-    public void retract(double magnitude) {
-    	if (this.getIsAtRetractionLimit()) {
-    		this.stop();
-    	}
-    	else {
-    		this.set(-1 * magnitude);
-    	}
-    }
-    
-    public void stop() {
-    	this.set(0);
-    	// System.out.println("STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.");
-    }
-    
-    
-    private void set(double magnitude) {
-    	magnitude = Math.min(magnitude, 1);
-    	magnitude = Math.max(magnitude, -1);
-    	magnitude *= Calibrations.armMaximumSpeed;
-    	
-    	PCDashboardDiagnostics.SubsystemNumber("Arm", "MotorOutputPercent", magnitude);
-    	this.armMotor.set(ControlMode.PercentOutput, magnitude);
-    	
-    	//System.out.println("RMO: " + this.SSSMotor.getMotorOutputPercent() + " LMO: " + this.leftMotor.getMotorOutputPercent());
-    }
-
+	}
+	
 	public boolean getIsExtendedPastTarget(int targetEncoderValue) {
     	boolean isPastTarget = false;
     	
@@ -324,8 +272,6 @@ public class ArmSubsystem extends Subsystem {
 	}
 
 	public void holdPosition() {
-		this.retract(Calibrations.armHoldPositionPowerMagnitude);
-			
+		this.armMotor.set(ControlMode.PercentOutput, Calibrations.armHoldPositionPowerMagnitude);
 	}
-		
 }

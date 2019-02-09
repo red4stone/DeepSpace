@@ -9,7 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Solenoid;
-import frc.robot.commands.beak.BeakReleaseHatchPanelCommand;
+import frc.robot.commands.beak.BeakCaptureHatchPanelCommand;
 import frc.robot.RobotMap;
 
 /**
@@ -24,7 +24,7 @@ public class BeakSubsystem extends Subsystem {
     public void initDefaultCommand() {
       // Set the default command for a subsystem here.
       //setDefaultCommand(new MySpecialCommand());
-      setDefaultCommand(new BeakReleaseHatchPanelCommand());
+      setDefaultCommand(new BeakCaptureHatchPanelCommand());
     }
     
     public void release() {
