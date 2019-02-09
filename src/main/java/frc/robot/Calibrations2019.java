@@ -84,9 +84,9 @@ public class Calibrations2019 {
     
 
     //ELEVATOR
-    public static final double kP = 12.0;
-    public static final double kI = 0.0;
-    public static final double kD = 170.0;
+    public static final double elevatorkP = 12.0;
+    public static final double elevatorkI = 0.0;
+    public static final double elevatorkD = 170.0;
 
     public static final double elevatorHoldPositionPowerMagnitude = -.075;
 	
@@ -119,5 +119,31 @@ public class Calibrations2019 {
     public static final int elevatorInchesToEncoderTicksOffsetValue = 10;
 	
 
-    //ARM
+	//ARM
+	public static double armkP = 1;
+	public static double armkI = 1;
+	public static double armkD= 1;
+	public static double armHoldPositionPowerMagnitude = 0.04;
+	
+	public static int armEncoderValueExtended = 12000;
+	
+	public static int armEncoderValueMidway = 7300;
+	public static int armEncoderValueRetracted = 0;
+	public static int ARM_ENCODER_BUFFER = 300;
+	
+	// This value represents the buffer that the arm can be *on either side* of midway,
+	// so the true buffer range is this value times two.
+	//public static int ARM_MIDWAY_SINGLE_SIDE_BUFFER = 300;
+	public static int armEncoderValueHighScale = 3600;
+	public static final double ARM_SAFETY_TIMER_TIMEOUT = 2;
+
+
+	//CARGO WHEEL
+	public static final double cargoWheelSuckPowerMagnitude = 1;
+	public static final double cargoSpitPowerMagnitude = 1;
+	public static final double cargoDropPowerMagnitude = .3;
+	
+	public static final double AXIS_IS_PRESSED_VALUE = .25;
+
+	public static final double cargoSpitTimer = .6;
 }
