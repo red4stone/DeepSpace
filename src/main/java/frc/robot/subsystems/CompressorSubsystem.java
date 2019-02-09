@@ -40,7 +40,7 @@ public class CompressorSubsystem extends Subsystem {
     }
 
     if (RobotController.getBatteryVoltage() > 11.5) {
-      stop();
+      start();
     }
   }
 
