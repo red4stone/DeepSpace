@@ -84,7 +84,7 @@ public class CargoWheelSubsystem extends Subsystem {
 		}
 	}
 
-	private boolean hasCubePullTimeout() {
+	/*private boolean hasCubePullTimeout() {
 		return _hasCargoDurationTimer.get() > .5;
-	}
+	}*/
 }

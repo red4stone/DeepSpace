@@ -8,9 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -32,9 +29,9 @@ import frc.robot.commands.arm.ArmExtendWhileHeldCommand;
 import frc.robot.commands.arm.ArmMoveToHeightCommand;
 import frc.robot.commands.arm.ArmRetractFullyCommand;
 import frc.robot.commands.arm.ArmRetractWhileHeldCommand;
+import frc.robot.commands.cargowheel.CargoWheelSpitCommand;
 import frc.robot.commands.cargowheel.CargoWheelSuckCommand;
 import frc.robot.commands.cargowheel.CargoWheelSuckOrSpitCommand;
-import frc.robot.commands.cargowheel.CargoWheelSpitCommand;
 import frc.robot.commands.drivetrain.SetCutPowerFalse;
 import frc.robot.commands.drivetrain.SetCutPowerTrue;
 import frc.robot.commands.drivetrain.SetGyroTargetHeading;
@@ -57,7 +54,6 @@ import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ProgrammableLEDSubsystem;
 import frc.util.LoggerOverlord;
 import frc.util.OverrideSystem;
-import frc.util.PCDashboardDiagnostics;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -338,15 +334,19 @@ public class Robot extends TimedRobot {
 		if (getMatchIsAtTime(90)) {
 			LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(4, false);
 			command.start();
+			command.close();
 		} else if (getMatchIsAtTime(60)) {
 			LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(3, false);
 			command.start();
+			command.close();
 		} else if (getMatchIsAtTime(30)) {
 			LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(2, true);
 			command.start();
+			command.close();
 		} else if (getMatchIsAtTime(10)) {
 			LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(1, true);
 			command.start();
+			command.close();
 		}
 	}
 

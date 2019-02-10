@@ -132,6 +132,7 @@ public class ElevatorSubsystem extends Subsystem {
 	public void burnoutProtection() {
 		ElevatorHoldPositionCommand command = new ElevatorHoldPositionCommand();
 		command.start();
+		command.close();
 	}
 
 	public int getElevatorPosition() {

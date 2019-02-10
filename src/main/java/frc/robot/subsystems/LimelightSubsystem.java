@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Calibrations;
 import frc.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
@@ -32,7 +31,6 @@ public class LimelightSubsystem extends Subsystem {
   	private double _distanceDesiredFromTarget = 0.0;
   	private double _distanceToDrive = 0.0;
 	private int _direction = 0;
-	private Timer _safetyTimer;
   	double timeoutSeconds = Calibrations.DriveTrainDriveInchesSafetyTimerSeconds;
   	DriveTrainDriveInchesCommand driveTrainDriveInchesCommand = new DriveTrainDriveInchesCommand(this._distanceToDrive, this._powerMagnitude, this._direction);
 

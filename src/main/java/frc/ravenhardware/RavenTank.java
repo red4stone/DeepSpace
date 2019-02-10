@@ -133,7 +133,6 @@ public class RavenTank {
 
 	public void setSlewRate(double slewRate) {
 		_slewRate = slewRate;
-		// TODO: Implement setSlewRate
 		this.driveRight.setSlewRate(_slewRate);
 		this.driveLeft.setSlewRate(_slewRate);
 	}
