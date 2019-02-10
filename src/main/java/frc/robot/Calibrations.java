@@ -121,17 +121,25 @@ public class Calibrations {
 	
 
 	//ARM
-	public static double armkF = 0.1;
-	public static double armkP = 1;
-	public static double armkI = 1;
-	public static double armkD= 1;
-	public static double armHoldPositionPowerMagnitude = 0.04;
+	public static final double armkF = 0.1;
+	public static final double armkP = 12.0;
+	public static final double armkI = 0.0;
+	public static final double armkD = 170.0;
+	public static final double armHoldPositionPowerMagnitude = 0.04;
 	
-	public static int armEncoderValueExtended = 12000;
-	public static int armEncoderValueMidway = 7300;
-	public static int armEncoderValueRetracted = 0;
+	public static final int armEncoderMinimumValue = 0;
+    public static final int armEncoderMaximumValue = 12000;
 
-	public static int ARM_ENCODER_BUFFER = 300;
+    public static final int armLowHatchEncoderValue = 4000;
+    public static final int armMidHatchEncoderValue = 18000;
+    public static final int armHighHatchEncoderValue = 24000;
+
+    public static final int armCargoShipPortEncoderValue = 24000;
+    public static final int armLowRocketPortEncoderValue = 24000;
+    public static final int armMidRocketPortEncoderValue = 24000;
+    public static final int armHighRocketPortEncoderValue = 24000;
+
+	public static final int ARM_ENCODER_BUFFER = 300;
 	// This value represents the buffer that the arm can be *on either side* of midway,
 	// so the true buffer range is this value times two.
 	
@@ -154,14 +162,15 @@ public class Calibrations {
 	public static final double CAMERA_ANGLE_OFFSET_FROM_HORIZONTAL = 27.75;
 	public static final double MINIMUM_DISTANCE_FROM_LIMELIGHT = 46.0;
 	public static final double MAXIMUM_DISTANCE_FROM_LIMELIGHT = 240.0;
-	public static int desiredTargetBuffer = 16;
+	public static final int desiredTargetBuffer = 16;
+	public static final int distanceDesiredFromHPS = 0;
 	public static final int distanceDesiredFromRocket = 24;
 	public static final int distanceDesiredFromCargoShip = 20;
 
 
 	//LIGHTING
-	public static double lightingFlashTotalDurationMs = 1000;
-	public static double lightingFlashes = 10;
+	public static final double lightingFlashTotalDurationMs = 1000;
+	public static final double lightingFlashes = 10;
 	
 
 	//CAMERA QUALITY

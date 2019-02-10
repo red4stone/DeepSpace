@@ -8,9 +8,6 @@ public class RobotMap {
 	public static int rightDriveChannel = 1;
 	public static int rightFollower1 = 12;
 	public static int rightFollower2 = 13;
-	
-	public static int armExtensionLimitSwitch = 8;
-	public static int armRetractionLimitSwitch = 9;
 
 	// Drive encoders
 	public static final int leftDriveEncoder1 = 0;
@@ -26,13 +23,13 @@ public class RobotMap {
 	public static final int underglowLightRelay = 1;
 	
 	// Elevator System
+	public static final int elevatorMotor = 2;
+	
 	public static final int elevatorEncoder1 = 20;
 	public static final int elevatorEncoder2 = 21;
 	
-	public static final int elevatorMotor = 2;
-	
-	public static final int ExtendedLimitSwitch = 7;
-	public static final int RetractionLimitSwitch = 6;
+	public static final int elevatorExtensionLimitSwitch = 7;
+	public static final int elevatorRetractionLimitSwitch = 6;
 	
 	// Camera
 	public static final String cameraName = "cam0";
@@ -45,4 +42,7 @@ public class RobotMap {
 	
 	// Arm System
 	public static final int armMotor = 4;
+
+	public static int armExtensionLimitSwitch = 8;
+	public static int armelevatorRetractionLimitSwitch = 9;
 }

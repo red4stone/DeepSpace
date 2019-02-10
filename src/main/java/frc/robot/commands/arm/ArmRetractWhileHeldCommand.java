@@ -20,7 +20,7 @@ public class ArmRetractWhileHeldCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Robot.ARM_SUBSYSTEM.setMotorsPID(Calibrations.armEncoderValueRetracted);
+        Robot.ARM_SUBSYSTEM.setMotorsPID(Calibrations.armEncoderMinimumValue);
         // System.out.println("RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING
         // ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.");
     }

@@ -32,10 +32,10 @@ public class CargoWheelSuckOrSpitCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (this._suckOrSpit == "Suck") {
+    if (this._suckOrSpit == "Suck" || this._suckOrSpit == "suck") {
       Robot.CARGO_WHEEL_SUBSYSTEM.suck(this._magnitude);
     }
-    if (this._suckOrSpit == "Spit") {
+    if (this._suckOrSpit == "Spit" || this._suckOrSpit == "spit") {
       Robot.CARGO_WHEEL_SUBSYSTEM.spit(this._magnitude);
     }
   }

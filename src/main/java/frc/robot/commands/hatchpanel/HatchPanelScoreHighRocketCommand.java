@@ -8,25 +8,22 @@
 package frc.robot.commands.hatchpanel;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Calibrations;
+import frc.robot.commands.arm.ArmMoveToHeightCommand;
+import frc.robot.commands.beak.BeakReleaseHatchPanelCommand;
+import frc.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
+import frc.robot.commands.drivetrain.DriveTrainDriveTargetCommand;
+import frc.robot.commands.elevator.ElevatorMoveToHeightCommand;
 
 public class HatchPanelScoreHighRocketCommand extends CommandGroup {
   
   public HatchPanelScoreHighRocketCommand() {
-    // Add Commands here:
-    // e.g. addSequential(new Command1());
-    // addSequential(new Command2());
-    // these will run in order.
-
-    // To run multiple commands at the same time,
-    // use addParallel()
-    // e.g. addParallel(new Command1());
-    // addSequential(new Command2());
-    // Command1 and Command2 will run in parallel.
-
-    // A command group will require all of the subsystems that each member
-    // would require.
-    // e.g. if Command1 requires chassis, and Command2 requires arm,
-    // a CommandGroup containing them would require both the chassis and the
-    // arm.
+    addParallel(new DriveTrainDriveTargetCommand(Calibrations.distanceDesiredFromRocket));
+    addParallel(new ElevatorMoveToHeightCommand(Calibrations.elevatorHighHatchEncoderValue));
+    addSequential(new ArmMoveToHeightCommand(Calibrations.armHighHatchEncoderValue));
+    addSequential(new BeakReleaseHatchPanelCommand());
+    addParallel(new ElevatorMoveToHeightCommand(Calibrations.elevatorLowHatchEncoderValue));
+    addParallel(new ArmMoveToHeightCommand(Calibrations.armLowHatchEncoderValue));
+    addSequential(new DriveTrainDriveInchesCommand(24, .6, Calibrations.drivingBackward));
   }
 }

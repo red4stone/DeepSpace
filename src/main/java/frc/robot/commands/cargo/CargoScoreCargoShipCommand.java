@@ -20,10 +20,10 @@ public class CargoScoreCargoShipCommand extends CommandGroup {
   public CargoScoreCargoShipCommand() {
     addParallel(new DriveTrainDriveTargetCommand(Calibrations.distanceDesiredFromCargoShip));
     addParallel(new ElevatorMoveToHeightCommand(Calibrations.elevatorCargoShipPortEncoderValue));
-    addSequential(new ArmMoveToHeightCommand(Calibrations.armEncoderValueMidway));
+    addSequential(new ArmMoveToHeightCommand(Calibrations.armCargoShipPortEncoderValue));
     addSequential(new CargoWheelSuckOrSpitCommand(Calibrations.cargoSpitPowerMagnitude, "Spit"));
     addParallel(new ElevatorMoveToHeightCommand(Calibrations.elevatorEncoderMinimumValue));
-    addParallel(new ArmMoveToHeightCommand(Calibrations.armEncoderValueRetracted));
+    addParallel(new ArmMoveToHeightCommand(Calibrations.armEncoderMinimumValue));
     addSequential(new DriveTrainDriveInchesCommand(24, .6, Calibrations.drivingBackward));
   }
 }

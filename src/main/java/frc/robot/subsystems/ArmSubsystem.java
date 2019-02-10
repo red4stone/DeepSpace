@@ -22,12 +22,12 @@ import frc.robot.TalonSRXConstants;
 public class ArmSubsystem extends Subsystem {
 	TalonSRX armMotor;
 	BufferedDigitalInput extensionLimitSwitch;
-	BufferedDigitalInput retractionLimitSwitch;
+	BufferedDigitalInput elevatorRetractionLimitSwitch;
 	private Timer _safetyTimer = new Timer();
 
 	public ArmSubsystem() {
 		this.armMotor = new TalonSRX(RobotMap.armMotor);
-		this.retractionLimitSwitch = new BufferedDigitalInput(RobotMap.armRetractionLimitSwitch);
+		this.elevatorRetractionLimitSwitch = new BufferedDigitalInput(RobotMap.armelevatorRetractionLimitSwitch);
 		this.extensionLimitSwitch = new BufferedDigitalInput(RobotMap.armExtensionLimitSwitch);
 		this.armMotor.config_kF(TalonSRXConstants.kPIDLoopIdx, Calibrations.armkF, TalonSRXConstants.kTimeoutMs);
 		this.armMotor.config_kP(TalonSRXConstants.kPIDLoopIdx, Calibrations.armkP, TalonSRXConstants.kTimeoutMs);
@@ -40,7 +40,7 @@ public class ArmSubsystem extends Subsystem {
 	}
 
 	public void periodic() {
-		retractionLimitSwitch.maintainState();
+		elevatorRetractionLimitSwitch.maintainState();
 		extensionLimitSwitch.maintainState();
 		this.getIsAtExtensionLimit();
 		this.getIsAtRetractionLimit();
@@ -49,7 +49,7 @@ public class ArmSubsystem extends Subsystem {
 		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitEncoderExtension", this.isEncoderAtExtensionLimit());
 		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitEncoderRetraction", this.isEncoderAtRetractionLimit());
 		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitSwitchExtension", this.getExtensionLimitSwitchValue());
-		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitSwitchRetraction", this.getRetractionLimitSwitchValue());
+		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitSwitchRetraction", this.getelevatorRetractionLimitSwitchValue());
 		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitFinalExtension", this.getIsAtExtensionLimit());
 		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitFinalRetraction", this.getIsAtRetractionLimit());
 		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitSwitchAndEncoderAgreeExtended", this.encoderAndLimitsMatchExtended());
@@ -61,13 +61,13 @@ public class ArmSubsystem extends Subsystem {
 	public boolean encoderAndLimitsMatchExtended() {
 		boolean match = true;
 
-		if (this.getEncoderPosition() > Calibrations.armEncoderValueExtended
+		if (this.getEncoderPosition() > Calibrations.armEncoderMaximumValue
 				&& this.getExtensionLimitSwitchValue() == false) {
 			match = false;
 		}
 
 		if (this.getExtensionLimitSwitchValue() == true
-				&& this.getEncoderPosition() < Calibrations.armEncoderValueExtended - Calibrations.ARM_ENCODER_BUFFER) {
+				&& this.getEncoderPosition() < Calibrations.armEncoderMaximumValue - Calibrations.ARM_ENCODER_BUFFER) {
 			match = false;
 		}
 
@@ -77,13 +77,13 @@ public class ArmSubsystem extends Subsystem {
 	public boolean encoderAndLimitsMatchRetracted() {
 		boolean match = true;
 
-		if (this.getEncoderPosition() < Calibrations.armEncoderValueRetracted
-				&& this.getRetractionLimitSwitchValue() == false) {
+		if (this.getEncoderPosition() < Calibrations.armEncoderMinimumValue
+				&& this.getelevatorRetractionLimitSwitchValue() == false) {
 			match = false;
 		}
 
-		if (this.getRetractionLimitSwitchValue() == true
-				&& this.getEncoderPosition() > Calibrations.armEncoderValueRetracted + Calibrations.ARM_ENCODER_BUFFER) {
+		if (this.getelevatorRetractionLimitSwitchValue() == true
+				&& this.getEncoderPosition() > Calibrations.armEncoderMinimumValue + Calibrations.ARM_ENCODER_BUFFER) {
 			match = false;
 		}
 
@@ -98,12 +98,12 @@ public class ArmSubsystem extends Subsystem {
 		return extensionLimitSwitchValue;
 	}
 
-	public boolean getRetractionLimitSwitchValue() {
-		boolean retractionLimitSwitchValue = false;
+	public boolean getelevatorRetractionLimitSwitchValue() {
+		boolean elevatorRetractionLimitSwitchValue = false;
 
-		retractionLimitSwitchValue = !retractionLimitSwitch.get();
+		elevatorRetractionLimitSwitchValue = !elevatorRetractionLimitSwitch.get();
 
-		return retractionLimitSwitchValue;
+		return elevatorRetractionLimitSwitchValue;
 	}
 
 	/*
@@ -120,7 +120,7 @@ public class ArmSubsystem extends Subsystem {
 
 		encoderLimit = this.isEncoderAtRetractionLimit();
 
-		if (this.getRetractionLimitSwitchValue() == true) {
+		if (this.getelevatorRetractionLimitSwitchValue() == true) {
 			switchLimit = true;
 			this.resetEncodersToRetractionLimit();
 		}
@@ -138,7 +138,7 @@ public class ArmSubsystem extends Subsystem {
 	}
 
 	public void expectArmToBeAtRetractionLimit() {
-		boolean isAtLimitSwitch = this.getRetractionLimitSwitchValue();
+		boolean isAtLimitSwitch = this.getelevatorRetractionLimitSwitchValue();
 		boolean isEncoderWithinRange = isEncoderAtRetractionLimit();
 
 		if (isEncoderWithinRange == false && isAtLimitSwitch == true) {
@@ -148,7 +148,7 @@ public class ArmSubsystem extends Subsystem {
 
 	public boolean isEncoderAtExtensionLimit() {
 		boolean encoderLimit = false;
-		if (this.getEncoderPosition() >= Calibrations.armEncoderValueExtended - Calibrations.ARM_ENCODER_BUFFER) {
+		if (this.getEncoderPosition() >= Calibrations.armEncoderMaximumValue - Calibrations.ARM_ENCODER_BUFFER) {
 			encoderLimit = true;
 		}
 		return encoderLimit;
@@ -156,7 +156,7 @@ public class ArmSubsystem extends Subsystem {
 
 	public boolean isEncoderAtRetractionLimit() {
 		boolean encoderLimit = false;
-		if (this.getEncoderPosition() <= Calibrations.armEncoderValueRetracted + Calibrations.ARM_ENCODER_BUFFER) {
+		if (this.getEncoderPosition() <= Calibrations.armEncoderMinimumValue + Calibrations.ARM_ENCODER_BUFFER) {
 			encoderLimit = true;
 		}
 		return encoderLimit;
@@ -184,11 +184,11 @@ public class ArmSubsystem extends Subsystem {
 	}
 
 	public void resetEncodersToRetractionLimit() {
-		this.armMotor.setSelectedSensorPosition(Calibrations.armEncoderValueRetracted, 0, 0);
+		this.armMotor.setSelectedSensorPosition(Calibrations.armEncoderMinimumValue, 0, 0);
 	}
 
 	public void resetEncodersToExtendedLimit() {
-		this.armMotor.setSelectedSensorPosition(Calibrations.armEncoderValueExtended, 0, 0);
+		this.armMotor.setSelectedSensorPosition(Calibrations.armEncoderMaximumValue, 0, 0);
 	}
 
 	public void setMotorsPID(int position) {
@@ -237,7 +237,7 @@ public class ArmSubsystem extends Subsystem {
 	public boolean getIsExtendedPastHighScale() {
 		boolean isPastHighScale = false;
 
-		if (this.getEncoderPosition() > Calibrations.armEncoderValueMidway+ Calibrations.ARM_ENCODER_BUFFER) {
+		if (this.getEncoderPosition() > Calibrations.armMidHatchEncoderValue + Calibrations.ARM_ENCODER_BUFFER) {
 			isPastHighScale = true;
 		}
 
@@ -247,7 +247,7 @@ public class ArmSubsystem extends Subsystem {
 	public boolean getIsRetractedBeforeHighScale() {
 		boolean isPastHighScale = false;
 
-		if (this.getEncoderPosition() < Calibrations.armEncoderValueMidway - Calibrations.ARM_ENCODER_BUFFER) {
+		if (this.getEncoderPosition() < Calibrations.armMidHatchEncoderValue - Calibrations.ARM_ENCODER_BUFFER) {
 			isPastHighScale = true;
 		}
 

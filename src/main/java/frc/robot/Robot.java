@@ -48,7 +48,6 @@ import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CompressorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.HatchPanelSubsystem;
 import frc.robot.subsystems.LightSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ProgrammableLEDSubsystem;
@@ -84,7 +83,6 @@ public class Robot extends TimedRobot {
 	public static final CompressorSubsystem COMPRESSOR_SUBSYSTEM = new CompressorSubsystem();
 	public static final DriveTrainSubsystem DRIVE_TRAIN_SUBSYSTEM = new DriveTrainSubsystem();
 	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
-	public static final HatchPanelSubsystem HATCH_PANEL_SUBSYSTEM = new HatchPanelSubsystem();
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
 	public static final LimelightSubsystem LIMELIGHT_SUBSYSTEM = new LimelightSubsystem();
 	public static final ProgrammableLEDSubsystem LED_SUBSYSTEM = new ProgrammableLEDSubsystem();
@@ -379,7 +377,7 @@ public class Robot extends TimedRobot {
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, false));
 
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidRocketPortEncoderValue));
-		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ArmMoveToHeightCommand(Calibrations.armEncoderValueMidway));
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ArmMoveToHeightCommand(Calibrations.armMidHatchEncoderValue));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidHatchEncoderValue));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ArmExtendFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ElevatorRetractFullyCommand());
@@ -388,10 +386,10 @@ public class Robot extends TimedRobot {
 		OPERATION_PANEL.getButton(ButtonCode.ARMMANUALOVERRIDERETRACT).whileHeld(new ArmRetractWhileHeldCommand());
 
 		OPERATION_PANEL2.getButton(ButtonCode.ARMEXTEND).whenPressed(new ArmExtendFullyCommand());
-		OPERATION_PANEL2.getButton(ButtonCode.ARMMIDRANGE).whenPressed(new ArmMoveToHeightCommand(Calibrations.armEncoderValueMidway));
+		OPERATION_PANEL2.getButton(ButtonCode.ARMMIDRANGE).whenPressed(new ArmMoveToHeightCommand(Calibrations.armMidHatchEncoderValue));
 		OPERATION_PANEL2.getButton(ButtonCode.ARMRETRACT).whenPressed(new ArmRetractFullyCommand());
 		
-		OPERATION_PANEL2.getButton(ButtonCode.CARGOOVERRIDE).whenPressed(new ArmMoveToHeightCommand(Calibrations.armEncoderValueMidway));
+		OPERATION_PANEL2.getButton(ButtonCode.CARGOOVERRIDE).whenPressed(new ArmMoveToHeightCommand(Calibrations.armMidHatchEncoderValue));
 		OPERATION_PANEL2.getButton(ButtonCode.CARGOOVERRIDE).whenPressed(new ElevatorExtendFullyCommand());
 		OPERATION_PANEL2.getButton(ButtonCode.CARGODROP).whileHeld(new CargoWheelSuckOrSpitCommand(Calibrations.cargoDropPowerMagnitude, "Spit"));
 		OPERATION_PANEL2.getButton(ButtonCode.CARGOSPIT).whileHeld(new CargoWheelSpitCommand());

@@ -20,7 +20,7 @@ public class ArmExtendFullyCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Robot.ARM_SUBSYSTEM.setMotorsPID(Calibrations.armEncoderValueExtended);
+        Robot.ARM_SUBSYSTEM.setMotorsPID(Calibrations.armEncoderMaximumValue);
         // System.out.println("EXTENDING ARM FULLY");
     }
 
