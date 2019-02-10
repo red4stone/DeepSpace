@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class CargoWheelStopCommand extends Command {
 
-    public CargoWheelStopCommand () {
-    	requires(Robot.CARGO_WHEEL_SUBSYSTEM);
+    public CargoWheelStopCommand() {
+        requires(Robot.CARGO_WHEEL_SUBSYSTEM);
     }
 
     // Called just before this Command runs the first time
@@ -19,7 +19,7 @@ public class CargoWheelStopCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.CARGO_WHEEL_SUBSYSTEM.stop();
+        Robot.CARGO_WHEEL_SUBSYSTEM.stop();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -29,7 +29,7 @@ public class CargoWheelStopCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.CARGO_WHEEL_SUBSYSTEM.stop();
+        Robot.CARGO_WHEEL_SUBSYSTEM.stop();
     }
 
     // Called when another command which requires one or more of the same

@@ -1,5 +1,6 @@
 package frc.robot.commands.elevator;
 
+import frc.robot.Calibrations;
 import frc.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,24 +11,22 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ElevatorRetractWhileHeldCommand extends Command {
 
     public ElevatorRetractWhileHeldCommand() {
-    	requires(Robot.ELEVATOR_SUBSYSTEM);
+        requires(Robot.ELEVATOR_SUBSYSTEM);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	System.out.println("ElevatorRetractCommand init");
+        System.out.println("ElevatorRetractCommand init");
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.ELEVATOR_SUBSYSTEM.retract();
+        Robot.ELEVATOR_SUBSYSTEM.setMotorsPID(Calibrations.elevatorEncoderMinimumValue);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	boolean isFinished = false;
-    	
-    	return isFinished;
+        return false;
     }
 
     // Called once after isFinished returns true
@@ -37,6 +36,6 @@ public class ElevatorRetractWhileHeldCommand extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.ELEVATOR_SUBSYSTEM.stop();
+        Robot.ELEVATOR_SUBSYSTEM.stop();
     }
 }
