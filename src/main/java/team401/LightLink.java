@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.I2C;
 
 public class LightLink {
     public class Color {
-    	public static final int RED = 0x01;
-    	public static final int ORANGE = 0x02;
+        public static final int RED = 0x01;
+        public static final int ORANGE = 0x02;
         public static final int YELLOW = 0x03;
         public static final int GREEN = 0x04;
         public static final int BLUE = 0x05;
@@ -39,14 +39,18 @@ public class LightLink {
     private I2C i2c;
 
     private static int bound(int i) {
-        if (i > 254) return 254;
-        if (i < 1) return 1;
+        if (i > 254)
+            return 254;
+        if (i < 1)
+            return 1;
         return i;
     }
 
     private static int bound0(int i) {
-        if (i > 254) return 254;
-        if (i < 0) return 0;
+        if (i > 254)
+            return 254;
+        if (i < 0)
+            return 0;
         return i;
     }
 
@@ -69,24 +73,25 @@ public class LightLink {
     }
 
     private static byte[] buildCommand(int strip, int color, int action, int speed) {
-        //SPEC v2
+        // SPEC v2
         strip = bound0(strip);
         color = bound(color);
         action = bound(action);
         speed = bound(speed);
         byte[] array = new byte[6];
-        array[0] = (byte) 0x00;         //START
-        array[1] = (byte) (strip + 1);  //STRIP
-        array[2] = (byte) color;        //COLOR
-        array[3] = (byte) action;       //ACTION
-        array[4] = (byte) speed;        //SPEED
-        array[5] = (byte) 0xFF;         //FINISH
+        array[0] = (byte) 0x00; // START
+        array[1] = (byte) (strip + 1); // STRIP
+        array[2] = (byte) color; // COLOR
+        array[3] = (byte) action; // ACTION
+        array[4] = (byte) speed; // SPEED
+        array[5] = (byte) 0xFF; // FINISH
         return array;
     }
 
     public void set(int color, int action, int speed, int strip) {
         synchronized (LL_LOCK) {
-        	//System.out.println("Inside synchronized. Params: color: " + color + " action: " + action + " " + " speed: " + speed + " strip: " + strip);
+            // System.out.println("Inside synchronized. Params: color: " + color + " action:
+            // " + action + " " + " speed: " + speed + " strip: " + strip);
             i2c.writeBulk(buildCommand(strip, color, action, speed));
         }
     }
@@ -190,7 +195,5 @@ public class LightLink {
     public void rainbow() {
         rainbow(DEFAULT_SPEED);
     }
-    
-}
-  
 
+}

@@ -8,13 +8,11 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ForAutonomousArmExtendCommand extends Command {
-	double magnitude;
-	
+    double magnitude;
+
     public ForAutonomousArmExtendCommand(double magnitude) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.ARM_SUBSYSTEM);
-    	this.magnitude = magnitude;
+        requires(Robot.ARM_SUBSYSTEM);
+        this.magnitude = magnitude;
     }
 
     // Called just before this Command runs the first time
@@ -23,8 +21,11 @@ public class ForAutonomousArmExtendCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.ARM_SUBSYSTEM.extend(magnitude);
-    	// System.out.println("EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.");
+
+        //Robot.ARM_SUBSYSTEM.extend(magnitude); WAS USED BEFORE
+
+        // System.out.println("EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING
+        // ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.");
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -34,7 +35,7 @@ public class ForAutonomousArmExtendCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.ARM_SUBSYSTEM.stop();
+        Robot.ARM_SUBSYSTEM.stop();
     }
 
     // Called when another command which requires one or more of the same

@@ -12,24 +12,23 @@ import frc.robot.commands.cargointake.CargoWheelsSpitCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutonomousLeftSwitchRightPositionCommand extends CommandGroup{
-	
+public class AutonomousLeftSwitchRightPositionCommand extends CommandGroup {
+
 	public AutonomousLeftSwitchRightPositionCommand() {
-		double driveForwardDistance = AutonomousCalibrations.LengthBetweenDriverWallAndSwitch + AutonomousCalibrations.LengthOfSwitch + AutonomousCalibrations.LengthOfRobotBuffer;
+		double driveForwardDistance = AutonomousCalibrations.LengthBetweenDriverWallAndSwitch
+				+ AutonomousCalibrations.LengthOfSwitch + AutonomousCalibrations.LengthOfRobotBuffer;
 		addSequential(new DriveTrainDriveInchesCommand(driveForwardDistance,
-				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
-    			Calibrations.drivingForward));
+				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude, Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
 		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.WidthOfSwitch,
-				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
-    			Calibrations.drivingForward));
+				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude, Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
 		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.LengthOfRobotBuffer,
-				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
-    			Calibrations.drivingForward));
+				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude, Calibrations.drivingForward));
 
-addSequential(new DriveTrainStopCommand());
-		// addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
+		addSequential(new DriveTrainStopCommand());
+		// addSequential(new
+		// DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
 		addSequential(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidHatchEncoderValue));
 		addSequential(new ArmExtendFullyCommand());
 		addSequential(new CargoWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchCargoPushPowerMagnitude));

@@ -2,11 +2,9 @@ package frc.robot.commands.commandgroups;
 
 import frc.robot.AutonomousCalibrations;
 import frc.robot.Calibrations;
-import frc.robot.commands.arm.ArmExtendToHighScaleCommand;
 import frc.robot.commands.arm.ArmMoveToHeightCommand;
 import frc.robot.commands.arm.ArmRetractFullyCommand;
 import frc.robot.commands.elevator.ElevatorExtendFullyCommand;
-import frc.robot.commands.elevator.ElevatorMoveToHeightCommand;
 import frc.robot.commands.elevator.ElevatorRetractFullyCommand;
 import frc.robot.commands.cargointake.CargoWheelStopCommand;
 import frc.robot.commands.cargointake.CargoWheelsSpitCommand;
@@ -23,7 +21,7 @@ public class ScoreOnScaleCommandGroup extends CommandGroup {
     	addSequential(new ElevatorExtendFullyCommand());
     	
     	
-    	addSequential(new ArmExtendToHighScaleCommand());
+    	addSequential(new ArmMoveToHeightCommand(Calibrations.armEncoderValueHighScale));
     	// addSequential(new ElevatorExtendFullyCommand());
     	
     	addSequential(new CargoWheelsSpitCommand(AutonomousCalibrations.AutonomousScaleCargoSpitPowerMagnitude));

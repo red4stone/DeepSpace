@@ -24,7 +24,7 @@ public class CompressorSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  Compressor aCompressor  = new Compressor();
+  Compressor aCompressor = new Compressor();
 
   @Override
   public void initDefaultCommand() {
@@ -33,8 +33,7 @@ public class CompressorSubsystem extends Subsystem {
   }
 
   @Override
-  public void periodic()
-  {
+  public void periodic() {
     if (RobotController.getBatteryVoltage() < 11.0) {
       stop();
     }

@@ -12,24 +12,22 @@ import frc.robot.commands.cargointake.CargoWheelsSpitCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutonomousRightSwitchRightPositionCommand extends CommandGroup{
-	
+public class AutonomousRightSwitchRightPositionCommand extends CommandGroup {
+
 	public AutonomousRightSwitchRightPositionCommand() {
-		
-addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.StraightSwitchDriveForwardFromWallInches,
-		AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
-		Calibrations.drivingForward,
-		AutonomousCalibrations.SideSwitchDriveForwardFromWallTimeoutSeconds));
-addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
-addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.StraightSwitchDriveForwardToSwitchInches,
-		AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
-		Calibrations.drivingForward));
 
-addSequential(new DriveTrainStopCommand());
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.StraightSwitchDriveForwardFromWallInches,
+				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude, Calibrations.drivingForward,
+				AutonomousCalibrations.SideSwitchDriveForwardFromWallTimeoutSeconds));
+		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.StraightSwitchDriveForwardToSwitchInches,
+				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude, Calibrations.drivingForward));
 
-addSequential(new ElevatorMoveToHeightCommand(Calibrations.elevatorCargoShipPortEncoderValue));
-addSequential(new ArmExtendFullyCommand());
-addSequential(new CargoWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchCargoPushPowerMagnitude));
+		addSequential(new DriveTrainStopCommand());
+
+		addSequential(new ElevatorMoveToHeightCommand(Calibrations.elevatorCargoShipPortEncoderValue));
+		addSequential(new ArmExtendFullyCommand());
+		addSequential(new CargoWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchCargoPushPowerMagnitude));
 	}
 
 }

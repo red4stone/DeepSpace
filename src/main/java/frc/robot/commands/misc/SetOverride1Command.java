@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class SetOverride1Command extends Command {
-	private OverrideSystem _overrideSystem;
-	private boolean _value;
-	
+    private OverrideSystem _overrideSystem;
+    private boolean _value;
+
     public SetOverride1Command(OverrideSystem overrideSystem, boolean value) {
-    	_overrideSystem = overrideSystem;
-    	_value = value;
+        _overrideSystem = overrideSystem;
+        _value = value;
     }
 
     // Called just before this Command runs the first time
@@ -22,8 +22,8 @@ public class SetOverride1Command extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("OVERIDDING OVERIDDING OVERIDDING");
-    	_overrideSystem.setOverride1(_value);
+        System.out.println("OVERIDDING OVERIDDING OVERIDDING");
+        _overrideSystem.setOverride1(_value);
     }
 
     // Make this return true when this Command no longer needs to run execute()

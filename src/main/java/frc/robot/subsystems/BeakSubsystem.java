@@ -18,20 +18,20 @@ import frc.robot.RobotMap;
 public class BeakSubsystem extends Subsystem {
   Solenoid beak = new Solenoid(RobotMap.beakSolenoid);
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
 
-    public void initDefaultCommand() {
-      // Set the default command for a subsystem here.
-      //setDefaultCommand(new MySpecialCommand());
-      setDefaultCommand(new BeakCaptureHatchPanelCommand());
-    }
-    
-    public void release() {
-    	beak.set(false);
-    }
-    
-    public void capture() {
-      beak.set(true);
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new BeakCaptureHatchPanelCommand());
+  }
+
+  public void release() {
+    beak.set(false);
+  }
+
+  public void capture() {
+    beak.set(true);
   }
 }

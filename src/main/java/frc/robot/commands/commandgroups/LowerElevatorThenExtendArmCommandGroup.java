@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class LowerElevatorThenExtendArmCommandGroup extends CommandGroup {
 
     public LowerElevatorThenExtendArmCommandGroup() {
-       addSequential(new ElevatorRetractFullyCommand());
-       addSequential(new ArmExtendFullyCommand());
+        addSequential(new ElevatorRetractFullyCommand());
+        addSequential(new ArmExtendFullyCommand());
     }
 }

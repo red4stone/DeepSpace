@@ -10,23 +10,24 @@ import frc.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutonomousRightScaleLeftPositionCommand extends CommandGroup {
-    public AutonomousRightScaleLeftPositionCommand() {
-    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousOppositeSideScaleForwardMovementtInches,
-    			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
-    			Calibrations.drivingForward,
-    			7));
-    	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90, Calibrations.driveTrainTurnRelativeDegreesGyroAdjustmentScaleFactor, 1.7));
-    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousOppositeSideScaleLateralMovementInches,
-    			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
-    			Calibrations.drivingForward,
-    			8));
-    	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90, Calibrations.driveTrainTurnRelativeDegreesGyroAdjustmentScaleFactor, 1.7));
-    	
-    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousOppositeSideScaleMoveIntoNullZoneInches,
-    			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
-    			Calibrations.drivingForward));
-    	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90, Calibrations.driveTrainTurnRelativeDegreesGyroAdjustmentScaleFactor, 1.7));
-    	
-    	addSequential(new ScoreOnScaleCommandGroup());
-    }
+	public AutonomousRightScaleLeftPositionCommand() {
+		addSequential(new DriveTrainDriveInchesCommand(
+				AutonomousCalibrations.AutonomousOppositeSideScaleForwardMovementtInches,
+				AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude, Calibrations.drivingForward, 7));
+		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90,
+				Calibrations.driveTrainTurnRelativeDegreesGyroAdjustmentScaleFactor, 1.7));
+		addSequential(new DriveTrainDriveInchesCommand(
+				AutonomousCalibrations.AutonomousOppositeSideScaleLateralMovementInches,
+				AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude, Calibrations.drivingForward, 8));
+		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90,
+				Calibrations.driveTrainTurnRelativeDegreesGyroAdjustmentScaleFactor, 1.7));
+
+		addSequential(new DriveTrainDriveInchesCommand(
+				AutonomousCalibrations.AutonomousOppositeSideScaleMoveIntoNullZoneInches,
+				AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude, Calibrations.drivingForward));
+		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90,
+				Calibrations.driveTrainTurnRelativeDegreesGyroAdjustmentScaleFactor, 1.7));
+
+		addSequential(new ScoreOnScaleCommandGroup());
+	}
 }

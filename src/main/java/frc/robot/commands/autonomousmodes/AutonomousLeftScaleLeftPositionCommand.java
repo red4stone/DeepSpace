@@ -29,20 +29,17 @@ public class AutonomousLeftScaleLeftPositionCommand extends CommandGroup {
 	 */
 	
     public AutonomousLeftScaleLeftPositionCommand() {
-    	
-    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.LengthBetweenDriverWallAndScale,
-    			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
-    			Calibrations.drivingForward,
-    			10));
-    	
-    	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90, AutonomousCalibrations.SwitchGyroScaleFactor, 1.5));
 
-    	addSequential(new DriveTrainDriveInchesCommand(10,
-    			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
-    			Calibrations.drivingBackward,
-    			1));
-    	addSequential(new DriveTrainStopCommand());
-    	addSequential(new ScoreOnScaleCommandGroup());
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.LengthBetweenDriverWallAndScale,
+				AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude, Calibrations.drivingForward, 10));
+
+		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90,
+				AutonomousCalibrations.SwitchGyroScaleFactor, 1.5));
+
+		addSequential(new DriveTrainDriveInchesCommand(10,
+				AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude, Calibrations.drivingBackward, 1));
+		addSequential(new DriveTrainStopCommand());
+		addSequential(new ScoreOnScaleCommandGroup());
     	
     	/*
     	
