@@ -18,10 +18,6 @@ public class DriveTrainSubsystem extends Subsystem {
 	public Robot robot;
 	Gamepad driveController;
 	public RavenTank ravenTank;
-	// private Solenoid _shiftToLowGearSolenoid = new
-	// Solenoid(RobotMap.shiftToLowGearSolenoid);
-	// private Solenoid _shiftToHighGearSolenoid = new
-	// Solenoid(RobotMap.shiftToHighGearSolenoid);
 	NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 	NetworkTableEntry tx = table.getEntry("tx");
 
@@ -42,10 +38,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	public void periodic() {
 
 		double elevatorHeightPercentage = Robot.ELEVATOR_SUBSYSTEM.getElevatorHeightPercentage();
-		// double elevatorHeightPercentage =
-		// Robot.DRIVE_CONTROLLER.getAxis(AxisCode.LEFTSTICKX);
-		double powerSubtractor = (1 - Calibrations.DRIVETRAIN_MAXPOWER_AT_MAX_ELEVEATOR_HEIGHT)
-				* elevatorHeightPercentage;
+		double powerSubtractor = (1 - Calibrations.DRIVETRAIN_MAXPOWER_AT_MAX_ELEVEATOR_HEIGHT) * elevatorHeightPercentage;
 		double maxPower = Math.min(1, 1 - powerSubtractor);
 		this.ravenTank.setMaxPower(maxPower);
 
@@ -59,12 +52,9 @@ public class DriveTrainSubsystem extends Subsystem {
 		this.ravenTank.setSlewRate(slewRate);
 
 		PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "PowerMax", maxPower);
-		PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "EncoderLeftInchesTraveled",
-				this.ravenTank.leftRavenEncoder.getNetInchesTraveled());
-		PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "EncoderRightInchesTraveled",
-				this.ravenTank.rightRavenEncoder.getNetInchesTraveled());
-		PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "EncoderAvgInchesTraveled",
-				Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled());
+		PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "EncoderLeftInchesTraveled", this.ravenTank.leftRavenEncoder.getNetInchesTraveled());
+		PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "EncoderRightInchesTraveled", this.ravenTank.rightRavenEncoder.getNetInchesTraveled());
+		PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "EncoderAvgInchesTraveled", Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled());
 		PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "SlewRate", slewRate);
 		PCDashboardDiagnostics.SubsystemBoolean("DriveTrain", "CutPower", this.ravenTank.getCutPower());
 	}

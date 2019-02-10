@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-//import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.gamepad.ButtonCode;
@@ -130,9 +129,6 @@ public class Robot extends TimedRobot {
 
 		this.setupDriveController();
 		this.setupOperationPanel();
-
-		// this.elevator.getPosition();
-		// this.elevator.getIsAtLimits();
 	}
 
 	/**
@@ -282,9 +278,7 @@ public class Robot extends TimedRobot {
 	 * the switch structure below with additional strings & commands.
 	 */
 	@Override
-	public void autonomousInit() {
-
-	}
+	public void autonomousInit() {}
 
 	/**
 	 * This function is called periodically during autonomous.
@@ -318,14 +312,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-
-		/*
-		 * if (DRIVE_TRAIN_SUBSYSTEM.ravenTank.userControlOfCutPower) { if
-		 * (DRIVE_CONTROLLER.getAxis(ControlsMap.driveCutPowerAxis) > .25) {
-		 * System.out.println("CUT POWER TRUE");
-		 * DRIVE_TRAIN_SUBSYSTEM.ravenTank.setCutPower(true); } else {
-		 * DRIVE_TRAIN_SUBSYSTEM.ravenTank.setCutPower(false); } }
-		 */
 
 		diagnostics.outputTeleopDiagnostics();
 
