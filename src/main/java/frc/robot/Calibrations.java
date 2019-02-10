@@ -151,9 +151,12 @@ public class Calibrations {
 
 	
 	//LIMELIGHT
-	public static final double FLOOR_TO_LIMELIGHT_LENS_HEIGHT = 6.5;
+	public static final double FLOOR_TO_LIMELIGHT_LENS_HEIGHT = 7;
 	public static final double FLOOR_TO_TARGET_CENTER_HEIGHT = 28.0;
-	public static final double CAMERA_ANGLE_OFFSET_FROM_HORIZONTAL = 9.36;
+	public static final double CAMERA_ANGLE_OFFSET_FROM_HORIZONTAL = 27.75;
+	public static final double MINIMUM_DISTANCE_FROM_LIMELIGHT = 46.0;
+	public static final double MAXIMUM_DISTANCE_FROM_LIMELIGHT = 240.0;
+	public static int desiredTargetBuffer = 16;
 
 
 	//LIGHTING
