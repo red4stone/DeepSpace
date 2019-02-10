@@ -237,7 +237,7 @@ public class ArmSubsystem extends Subsystem {
 	public boolean getIsExtendedPastHighScale() {
 		boolean isPastHighScale = false;
 
-		if (this.getEncoderPosition() > Calibrations.armEncoderValueHighScale + Calibrations.ARM_ENCODER_BUFFER) {
+		if (this.getEncoderPosition() > Calibrations.armEncoderValueMidway+ Calibrations.ARM_ENCODER_BUFFER) {
 			isPastHighScale = true;
 		}
 
@@ -247,7 +247,7 @@ public class ArmSubsystem extends Subsystem {
 	public boolean getIsRetractedBeforeHighScale() {
 		boolean isPastHighScale = false;
 
-		if (this.getEncoderPosition() < Calibrations.armEncoderValueHighScale - Calibrations.ARM_ENCODER_BUFFER) {
+		if (this.getEncoderPosition() < Calibrations.armEncoderValueMidway - Calibrations.ARM_ENCODER_BUFFER) {
 			isPastHighScale = true;
 		}
 

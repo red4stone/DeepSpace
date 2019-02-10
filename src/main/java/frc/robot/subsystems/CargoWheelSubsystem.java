@@ -1,10 +1,9 @@
 package frc.robot.subsystems;
 
 import frc.ravenhardware.BufferedDigitalInput;
-import frc.robot.Calibrations;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.cargointake.CargoWheelStopCommand;
+import frc.robot.commands.cargowheel.CargoWheelStopCommand;
 import frc.util.PCDashboardDiagnostics;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -35,11 +34,7 @@ public class CargoWheelSubsystem extends Subsystem {
 		setDefaultCommand(new CargoWheelStopCommand());
 	}
 
-	public void pull() {
-		this.pull(Calibrations.cargoWheelSuckPowerMagnitude);
-	}
-
-	public void pull(double magnitude) {
+	public void suck(double magnitude) {
 		// if(this.hasCubePullTimeout() == true) {
 		// this.stop();
 		// } else {
@@ -47,11 +42,7 @@ public class CargoWheelSubsystem extends Subsystem {
 		// }
 	}
 
-	public void push() {
-		this.push(Calibrations.cargoDropPowerMagnitude);
-	}
-
-	public void push(double magnitude) {
+	public void spit(double magnitude) {
 		this.set(magnitude);
 	}
 
@@ -65,10 +56,7 @@ public class CargoWheelSubsystem extends Subsystem {
 
 	private void set(double magnitude) {
 		// System.out.println("Setting cargo motors: " + magnitude);
-		double MotorMagnitude = magnitude;
-
-		PCDashboardDiagnostics.SubsystemNumber("CargoWheel", "MotorOutputPercent", MotorMagnitude);
-		cargoMotor.set(ControlMode.PercentOutput, MotorMagnitude);
+		cargoMotor.set(ControlMode.PercentOutput, magnitude);
 	}
 
 	public boolean hasCube() {
@@ -81,8 +69,9 @@ public class CargoWheelSubsystem extends Subsystem {
 	public void periodic() {
 		cargoSensor.maintainState();
 
-		PCDashboardDiagnostics.SubsystemBoolean("CargoWheel", "HasCube", this.hasCube());
-		PCDashboardDiagnostics.SubsystemBoolean("CargoWheel", "HasCubeSensorRaw", cargoSensor.get());
+		PCDashboardDiagnostics.SubsystemBoolean("CargoWheel", "HasCargo", this.hasCube());
+		PCDashboardDiagnostics.SubsystemBoolean("CargoWheel", "HasCargoSensorRaw", cargoSensor.get());
+		PCDashboardDiagnostics.SubsystemNumber("CargoWheel", "MotorOutputPercent", cargoMotor.getMotorOutputPercent());
 
 		if (this.hasCube() == false) {
 			_hasCargoDurationTimer.reset();

@@ -1,14 +1,14 @@
-package frc.robot.commands.cargointake;
+package frc.robot.commands.cargowheel;
 
 import frc.robot.subsystems.CargoWheelSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CargoWheelPullIdleCommand extends Command {
+public class CargoWheelSuckIdleCommand extends Command {
 
     CargoWheelSubsystem cargoWheelSubsystem;
 
-    public CargoWheelPullIdleCommand(CargoWheelSubsystem cargoWheelSubsystem) {
+    public CargoWheelSuckIdleCommand(CargoWheelSubsystem cargoWheelSubsystem) {
         requires(cargoWheelSubsystem);
         this.cargoWheelSubsystem = cargoWheelSubsystem;
     }

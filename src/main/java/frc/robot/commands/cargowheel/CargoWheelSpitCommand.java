@@ -1,4 +1,4 @@
-package frc.robot.commands.cargointake;
+package frc.robot.commands.cargowheel;
 
 import frc.robot.Calibrations;
 import frc.robot.Robot;
@@ -6,37 +6,24 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CargoWheelsSpitCommand extends Command {
-	double magnitude;
-	Timer durationTimer;
+public class CargoWheelSpitCommand extends Command {
 
-	public CargoWheelsSpitCommand(double magnitude) {
+	public CargoWheelSpitCommand() {
 		requires(Robot.CARGO_WHEEL_SUBSYSTEM);
-		this.magnitude = magnitude;
-		this.durationTimer = new Timer();
-		this.durationTimer.start();
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		this.durationTimer.reset();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		// Robot.CARGO_WHEEL_SUBSYSTEM.push(magnitude);
-		Robot.CARGO_WHEEL_SUBSYSTEM.push(this.magnitude);
+		Robot.CARGO_WHEEL_SUBSYSTEM.spit(Calibrations.cargoSpitPowerMagnitude);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		boolean isFinished = false;
-
-		if (durationTimer.get() > Calibrations.cargoSpitTimer) {
-			isFinished = true;
-		}
-
-		return isFinished;
+		return false;
 	}
 
 	// Called once after isFinished returns true

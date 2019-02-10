@@ -10,9 +10,7 @@ package frc.robot.commands.hatchpanel;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class HatchPanelCaptureCommand extends CommandGroup {
-  /**
-   * Add your docs here.
-   */
+  
   public HatchPanelCaptureCommand() {
     // Add Commands here:
     // e.g. addSequential(new Command1());

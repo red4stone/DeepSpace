@@ -1,15 +1,15 @@
-package frc.robot.commands.cargointake;
+package frc.robot.commands.cargowheel;
 
+import frc.robot.Calibrations;
 import frc.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class CargoWheelPullCommand extends Command {
+public class CargoWheelSuckCommand extends Command {
 
-    public CargoWheelPullCommand() {
+    public CargoWheelSuckCommand() {
         requires(Robot.CARGO_WHEEL_SUBSYSTEM);
     }
 
@@ -22,9 +22,7 @@ public class CargoWheelPullCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Robot.CARGO_WHEEL_SUBSYSTEM.pull();
-        System.out.println(
-                "CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();CargoWheelSubsystem.pull();");
+        Robot.CARGO_WHEEL_SUBSYSTEM.suck(Calibrations.cargoWheelSuckPowerMagnitude);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -10,9 +10,7 @@ package frc.robot.commands.cargo;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class CargoScoreLowRocketCommand extends CommandGroup {
-  /**
-   * Add your docs here.
-   */
+  
   public CargoScoreLowRocketCommand() {
     // Add Commands here:
     // e.g. addSequential(new Command1());

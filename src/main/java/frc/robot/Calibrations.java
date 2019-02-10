@@ -128,26 +128,24 @@ public class Calibrations {
 	public static double armHoldPositionPowerMagnitude = 0.04;
 	
 	public static int armEncoderValueExtended = 12000;
-	
 	public static int armEncoderValueMidway = 7300;
 	public static int armEncoderValueRetracted = 0;
+
 	public static int ARM_ENCODER_BUFFER = 300;
-	
 	// This value represents the buffer that the arm can be *on either side* of midway,
 	// so the true buffer range is this value times two.
-	//public static int ARM_MIDWAY_SINGLE_SIDE_BUFFER = 300;
-	public static int armEncoderValueHighScale = 3600;
+	
 	public static final double ARM_SAFETY_TIMER_TIMEOUT = 2;
 
 
 	//CARGO WHEEL
 	public static final double cargoWheelSuckPowerMagnitude = 1;
 	public static final double cargoSpitPowerMagnitude = 1;
-	public static final double cargoDropPowerMagnitude = .3;
+	public static final double cargoDropPowerMagnitude = .5;
 	
 	public static final double AXIS_IS_PRESSED_VALUE = .25;
 
-	public static final double cargoSpitTimer = .6;
+	public static final double cargoSpitTimer = 1;
 
 	
 	//LIMELIGHT
@@ -157,6 +155,8 @@ public class Calibrations {
 	public static final double MINIMUM_DISTANCE_FROM_LIMELIGHT = 46.0;
 	public static final double MAXIMUM_DISTANCE_FROM_LIMELIGHT = 240.0;
 	public static int desiredTargetBuffer = 16;
+	public static final int distanceDesiredFromRocket = 24;
+	public static final int distanceDesiredFromCargoShip = 20;
 
 
 	//LIGHTING

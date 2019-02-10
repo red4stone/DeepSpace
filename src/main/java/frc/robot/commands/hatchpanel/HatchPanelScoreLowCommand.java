@@ -10,9 +10,7 @@ package frc.robot.commands.hatchpanel;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class HatchPanelScoreLowCommand extends CommandGroup {
-  /**
-   * Add your docs here.
-   */
+  
   public HatchPanelScoreLowCommand() {
     // Add Commands here:
     // e.g. addSequential(new Command1());

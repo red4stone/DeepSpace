@@ -40,7 +40,7 @@ public class OperationPanel2 {
 		case CARGODROP:
 			buttonNumber = 6;
 			break;
-		case RUNCARGO:
+		case CARGOSUCK:
 			buttonNumber = 7;
 			break;
 		default:

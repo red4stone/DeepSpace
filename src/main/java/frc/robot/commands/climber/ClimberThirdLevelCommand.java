@@ -10,9 +10,7 @@ package frc.robot.commands.climber;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class ClimberThirdLevelCommand extends CommandGroup {
-  /**
-   * Add your docs here.
-   */
+  
   public ClimberThirdLevelCommand() {
     // Add Commands here:
     // e.g. addSequential(new Command1());

@@ -32,9 +32,9 @@ import frc.robot.commands.arm.ArmExtendWhileHeldCommand;
 import frc.robot.commands.arm.ArmMoveToHeightCommand;
 import frc.robot.commands.arm.ArmRetractFullyCommand;
 import frc.robot.commands.arm.ArmRetractWhileHeldCommand;
-import frc.robot.commands.cargointake.CargoWheelPullCommand;
-import frc.robot.commands.cargointake.CargoWheelPushHardCommand;
-import frc.robot.commands.cargointake.CargoWheelPushSoftCommand;
+import frc.robot.commands.cargowheel.CargoWheelSuckCommand;
+import frc.robot.commands.cargowheel.CargoWheelSuckOrSpitCommand;
+import frc.robot.commands.cargowheel.CargoWheelSpitCommand;
 import frc.robot.commands.drivetrain.SetCutPowerFalse;
 import frc.robot.commands.drivetrain.SetCutPowerTrue;
 import frc.robot.commands.drivetrain.SetGyroTargetHeading;
@@ -47,8 +47,11 @@ import frc.robot.commands.misc.SetOverride1Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.BeakSubsystem;
 import frc.robot.subsystems.CargoWheelSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.CompressorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.HatchPanelSubsystem;
 import frc.robot.subsystems.LightSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ProgrammableLEDSubsystem;
@@ -78,14 +81,17 @@ public class Robot extends TimedRobot {
 	public static final OperationPanel OPERATION_PANEL = new OperationPanel(1);
 	public static final OperationPanel2 OPERATION_PANEL2 = new OperationPanel2(2);
 
+	public static final ArmSubsystem ARM_SUBSYSTEM = new ArmSubsystem();
+	public static final BeakSubsystem BEAK_SUBSYSTEM = new BeakSubsystem();
+	public static final CargoWheelSubsystem CARGO_WHEEL_SUBSYSTEM = new CargoWheelSubsystem();
+	public static final ClimberSubsystem CLIMBER_SUBSYSTEM = new ClimberSubsystem();
+	public static final CompressorSubsystem COMPRESSOR_SUBSYSTEM = new CompressorSubsystem();
 	public static final DriveTrainSubsystem DRIVE_TRAIN_SUBSYSTEM = new DriveTrainSubsystem();
 	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
-	public static final ArmSubsystem ARM_SUBSYSTEM = new ArmSubsystem();
-	public static final CargoWheelSubsystem CARGO_WHEEL_SUBSYSTEM = new CargoWheelSubsystem();
-	public static final BeakSubsystem BEAK_SUBSYSTEM = new BeakSubsystem();
+	public static final HatchPanelSubsystem HATCH_PANEL_SUBSYSTEM = new HatchPanelSubsystem();
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
-	public static final ProgrammableLEDSubsystem LED_SUBSYSTEM = new ProgrammableLEDSubsystem();
 	public static final LimelightSubsystem LIMELIGHT_SUBSYSTEM = new LimelightSubsystem();
+	public static final ProgrammableLEDSubsystem LED_SUBSYSTEM = new ProgrammableLEDSubsystem();
 
 	public static final Relay HAS_CUBE_LEDS_RELAY = new Relay(RobotMap.hasCubeLEDLightRelay);
 	public static final Relay UNDERGLOW_RELAY = new Relay(RobotMap.underglowLightRelay);
@@ -367,24 +373,29 @@ public class Robot extends TimedRobot {
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEDOWN).whileHeld(new ElevatorRetractWhileHeldCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEDOWN).whenPressed(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT, true));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEDOWN).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT, false));
+
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whileHeld(new ElevatorExtendWhileHeldCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whenPressed(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, true));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, false));
+
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidRocketPortEncoderValue));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ArmMoveToHeightCommand(Calibrations.armEncoderValueMidway));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidHatchEncoderValue));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ArmExtendFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ElevatorRetractFullyCommand());
+
 		OPERATION_PANEL.getButton(ButtonCode.ARMMANUALOVERRIDEEXTEND).whileHeld(new ArmExtendWhileHeldCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ARMMANUALOVERRIDERETRACT).whileHeld(new ArmRetractWhileHeldCommand());
+
 		OPERATION_PANEL2.getButton(ButtonCode.ARMEXTEND).whenPressed(new ArmExtendFullyCommand());
 		OPERATION_PANEL2.getButton(ButtonCode.ARMMIDRANGE).whenPressed(new ArmMoveToHeightCommand(Calibrations.armEncoderValueMidway));
 		OPERATION_PANEL2.getButton(ButtonCode.ARMRETRACT).whenPressed(new ArmRetractFullyCommand());
-		OPERATION_PANEL2.getButton(ButtonCode.CARGOOVERRIDE).whenPressed(new ArmMoveToHeightCommand(Calibrations.armEncoderValueHighScale));
+		
+		OPERATION_PANEL2.getButton(ButtonCode.CARGOOVERRIDE).whenPressed(new ArmMoveToHeightCommand(Calibrations.armEncoderValueMidway));
 		OPERATION_PANEL2.getButton(ButtonCode.CARGOOVERRIDE).whenPressed(new ElevatorExtendFullyCommand());
-		OPERATION_PANEL2.getButton(ButtonCode.CARGODROP).whileHeld(new CargoWheelPushSoftCommand());
-		OPERATION_PANEL2.getButton(ButtonCode.CARGOSPIT).whileHeld(new CargoWheelPushHardCommand());
-		OPERATION_PANEL2.getButton(ButtonCode.RUNCARGO).whileHeld(new CargoWheelPullCommand());
+		OPERATION_PANEL2.getButton(ButtonCode.CARGODROP).whileHeld(new CargoWheelSuckOrSpitCommand(Calibrations.cargoDropPowerMagnitude, "Spit"));
+		OPERATION_PANEL2.getButton(ButtonCode.CARGOSPIT).whileHeld(new CargoWheelSpitCommand());
+		OPERATION_PANEL2.getButton(ButtonCode.CARGOSUCK).whileHeld(new CargoWheelSuckCommand());
 	}
 
 	/**
