@@ -1,7 +1,7 @@
 package frc.robot;
 
-import frc.gamepad.AxisCode;
-import frc.gamepad.ButtonCode;
+import frc.controls.AxisCode;
+import frc.controls.ButtonCode;
 
 public class ControlsMap {
 	// Drive controller

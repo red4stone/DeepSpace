@@ -1,8 +1,8 @@
 package frc.robot.subsystems;
 
 import team401.LightLink;
-import frc.gamepad.ButtonCode;
-import frc.gamepad.Gamepad;
+import frc.controls.ButtonCode;
+import frc.controls.Gamepad;
 import frc.robot.Robot;
 import frc.robot.commands.LED.LEDCommand;
 
