@@ -1,5 +1,6 @@
 package frc.robot.commands.arm;
 
+import frc.robot.Calibrations;
 import frc.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,11 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ArmRetractWhileHeldCommand extends Command {
-	
+
     public ArmRetractWhileHeldCommand() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.ARM_SUBSYSTEM);
+        requires(Robot.ARM_SUBSYSTEM);
     }
 
     // Called just before this Command runs the first time
@@ -21,24 +20,25 @@ public class ArmRetractWhileHeldCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.ARM_SUBSYSTEM.retract();
-    	// System.out.println("RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.");
+        Robot.ARM_SUBSYSTEM.setMotorsPID(Calibrations.armEncoderMinimumValue);
+        // System.out.println("RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING
+        // ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	boolean isFinished = false;
+        boolean isFinished = false;
         return isFinished;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	// Robot.ARM_SUBSYSTEM.stop();
+        // Robot.ARM_SUBSYSTEM.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.ARM_SUBSYSTEM.stop();
+        Robot.ARM_SUBSYSTEM.stop();
     }
 }

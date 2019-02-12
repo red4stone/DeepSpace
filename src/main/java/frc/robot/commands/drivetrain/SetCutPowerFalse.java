@@ -19,7 +19,7 @@ public class SetCutPowerFalse extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setCutPower(false);
+        Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setCutPower(false);
     }
 
     // Make this return true when this Command no longer needs to run execute()
