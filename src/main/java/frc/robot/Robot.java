@@ -86,9 +86,10 @@ public class Robot extends TimedRobot {
 	public static final LimelightSubsystem LIMELIGHT_SUBSYSTEM = new LimelightSubsystem();
 	public static final ProgrammableLEDSubsystem LED_SUBSYSTEM = new ProgrammableLEDSubsystem();
 
-	public static final Relay HAS_CUBE_LEDS_RELAY = new Relay(RobotMap.hasCubeLEDLightRelay);
+	public static final Relay HAS_HATCH_PANEL_LEDS_RELAY = new Relay(RobotMap.hasHatchPanelLEDLightRelay);
+	public static final Relay HAS_CARGO_LEDS_RELAY = new Relay(RobotMap.hasCargoLEDLightRelay);
 	public static final Relay UNDERGLOW_RELAY = new Relay(RobotMap.underglowLightRelay);
-	public static final RavenLighting HAS_CUBE_LEDS = new RavenLighting(HAS_CUBE_LEDS_RELAY);
+	public static final RavenLighting HAS_CUBE_LEDS = new RavenLighting(HAS_HATCH_PANEL_LEDS_RELAY);
 	public static final RavenLighting UNDERGLOW = new RavenLighting(UNDERGLOW_RELAY);
 
 	CameraServer server;
@@ -362,6 +363,7 @@ public class Robot extends TimedRobot {
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whenPressed(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, true));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, false));
 
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ElevatorExtendFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidRocketPortEncoderValue));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ArmMoveToHeightCommand(Calibrations.armMidHatchEncoderValue));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidHatchEncoderValue));

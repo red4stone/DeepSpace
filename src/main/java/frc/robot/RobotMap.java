@@ -19,7 +19,8 @@ public class RobotMap {
 	//public static final int shiftToHighGearSolenoid = 1;
 	
 	//Relays 
-	public static final int hasCubeLEDLightRelay = 0;
+	public static final int hasCargoLEDLightRelay = 0;
+	public static final int hasHatchPanelLEDLightRelay = 2;
 	public static final int underglowLightRelay = 1;
 	
 	// Elevator System
@@ -36,9 +37,11 @@ public class RobotMap {
 	
 	// Cargo System 
 	public static final int cargoMotor = 5;
-	public static final int beakSolenoid = 2;
-
 	public static final int cargoSensor = 5;
+
+	// Hatch Panel System
+	public static final int beakSolenoid = 2;
+	public static final int hatchPanelSensor = 6;
 	
 	// Arm System
 	public static final int armMotor = 4;

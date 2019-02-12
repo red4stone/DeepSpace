@@ -15,7 +15,7 @@ public class CargoWheelSuckCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        if (Robot.CARGO_WHEEL_SUBSYSTEM.hasCube() == false) {
+        if (Robot.CARGO_WHEEL_SUBSYSTEM.hasCargo() == false) {
             // new LowerElevatorThenExtendArmCommandGroup().start();
         }
     }

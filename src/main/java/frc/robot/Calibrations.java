@@ -37,7 +37,7 @@ public class Calibrations {
 	public static final double DriveTrainCollisionJerkThreshold = 4;
 
 	// 2019 and newer robots use talonSRX instead talon
-	public static final Boolean UseTalonSRXForDriveController = true;
+	public static final Boolean UseTalonSRXForDriveController = false;
 
 	
 	// Drive and gyro modes
@@ -89,7 +89,7 @@ public class Calibrations {
     public static final double elevatorkI = 0.0;
     public static final double elevatorkD = 170.0;
 
-    public static final double elevatorHoldPositionPowerMagnitude = -.075;
+    public static final double elevatorHoldPositionPowerMagnitude = .05;
 	
 	public static final int elevatorEncoderMinimumValue = 0;
     public static final int elevatorEncoderMaximumValue = 27000;
@@ -100,7 +100,7 @@ public class Calibrations {
 
     public static final int elevatorCargoShipPortEncoderValue = 24000;
     public static final int elevatorLowRocketPortEncoderValue = 24000;
-    public static final int elevatorMidRocketPortEncoderValue = 24000;
+    public static final int elevatorMidRocketPortEncoderValue = 18000;
     public static final int elevatorHighRocketPortEncoderValue = 24000;
 
     // The safety margin is how far away from the end of travel the encoders will stop the lift.
@@ -114,7 +114,7 @@ public class Calibrations {
 	public static final double elevatorConsideredMovingEncoderRate = 0;
 	
     public static final double ELEVATOR_MOVE_TO_POSITION_TIMEOUT = 2;
-    public static final double ELEVATOR_SAFETY_TIMER_TIMEOUT = 3.5;
+    public static final double ELEVATOR_SAFETY_TIMER_TIMEOUT = 5;
 	
 	public static final int elevatorInchesToEncoderTicksConversionValue = 411;
     public static final int elevatorInchesToEncoderTicksOffsetValue = 10;

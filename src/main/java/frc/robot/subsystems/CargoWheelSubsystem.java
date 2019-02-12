@@ -35,7 +35,7 @@ public class CargoWheelSubsystem extends Subsystem {
 	}
 
 	public void suck(double magnitude) {
-		// if(this.hasCubePullTimeout() == true) {
+		// if(this.hasCargoPullTimeout() == true) {
 		// this.stop();
 		// } else {
 		this.set(-1 * magnitude);
@@ -59,32 +59,28 @@ public class CargoWheelSubsystem extends Subsystem {
 		cargoMotor.set(ControlMode.PercentOutput, magnitude);
 	}
 
-	public boolean hasCube() {
+	public boolean hasCargo() {
 		boolean otherLimit = false;
-		boolean hasCube = cargoSensor.get() == false;
+		boolean hasCargo = cargoSensor.get() == false;
 
-		return Robot.OVERRIDE_SYSTEM_CARGO.getIsAtLimit(hasCube, otherLimit);
+		return Robot.OVERRIDE_SYSTEM_CARGO.getIsAtLimit(hasCargo, otherLimit);
 	}
 
 	public void periodic() {
 		cargoSensor.maintainState();
 
-		PCDashboardDiagnostics.SubsystemBoolean("CargoWheel", "HasCargo", this.hasCube());
+		PCDashboardDiagnostics.SubsystemBoolean("CargoWheel", "HasCargo", this.hasCargo());
 		PCDashboardDiagnostics.SubsystemBoolean("CargoWheel", "HasCargoSensorRaw", cargoSensor.get());
 		PCDashboardDiagnostics.SubsystemNumber("CargoWheel", "MotorOutputPercent", cargoMotor.getMotorOutputPercent());
 
-		if (this.hasCube() == false) {
+		if (this.hasCargo() == false) {
 			_hasCargoDurationTimer.reset();
 		}
 
-		if (this.hasCube()) {
+		if (this.hasCargo()) {
 			Robot.HAS_CUBE_LEDS_RELAY.set(Value.kForward);
 		} else {
 			Robot.HAS_CUBE_LEDS_RELAY.set(Value.kOff);
 		}
 	}
-
-	/*private boolean hasCubePullTimeout() {
-		return _hasCargoDurationTimer.get() > .5;
-	}*/
 }
