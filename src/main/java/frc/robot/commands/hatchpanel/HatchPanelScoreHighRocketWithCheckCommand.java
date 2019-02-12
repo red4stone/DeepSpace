@@ -23,9 +23,8 @@ public class HatchPanelScoreHighRocketWithCheckCommand extends CommandGroup {
     addSequential(new ArmMoveToHeightCommand(Calibrations.armHighHatchEncoderValue));
     addSequential(new BeakReleaseHatchPanelCommand());
     addSequential(new DriveTrainDriveInchesCommand(2, .6, Calibrations.drivingBackward));
-  
+    addSequential(new HatchPanelCheckCommand(new HatchPanelScoreHighRocketWithCheckCommand()));
     addParallel(new ElevatorMoveToHeightCommand(Calibrations.elevatorLowHatchEncoderValue));
     addParallel(new ArmMoveToHeightCommand(Calibrations.armLowHatchEncoderValue));
-
   }
 }
