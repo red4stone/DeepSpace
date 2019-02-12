@@ -78,9 +78,9 @@ public class CargoWheelSubsystem extends Subsystem {
 		}
 
 		if (this.hasCargo()) {
-			Robot.HAS_CUBE_LEDS_RELAY.set(Value.kForward);
+			Robot.HAS_CARGO_LEDS_RELAY.set(Value.kForward);
 		} else {
-			Robot.HAS_CUBE_LEDS_RELAY.set(Value.kOff);
+			Robot.HAS_CARGO_LEDS_RELAY.set(Value.kOff);
 		}
 	}
 }
