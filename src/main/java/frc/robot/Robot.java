@@ -149,6 +149,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		NetworkTableDiagnostics.SendData();
 		Robot.LED_SUBSYSTEM.setDisabledPattern();
 
 		Scheduler.getInstance().run();
@@ -284,6 +285,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		NetworkTableDiagnostics.SendData();
 		Scheduler.getInstance().run();
 		diagnostics.outputAutonomousDiagnostics();
 	}

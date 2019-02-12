@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import frc.ravenhardware.BufferedDigitalInput;
 import frc.robot.Calibrations;
+import frc.robot.NetworkTableDiagnostics;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.arm.ArmHoldPositionCommand;
@@ -33,6 +34,8 @@ public class ArmSubsystem extends Subsystem {
 		this.armMotor.config_kP(TalonSRXConstants.kPIDLoopIdx, Calibrations.armkP, TalonSRXConstants.kTimeoutMs);
 		this.armMotor.config_kI(TalonSRXConstants.kPIDLoopIdx, Calibrations.armkI, TalonSRXConstants.kTimeoutMs);
 		this.armMotor.config_kD(TalonSRXConstants.kPIDLoopIdx, Calibrations.armkD, TalonSRXConstants.kTimeoutMs);
+
+		NetworkTableDiagnostics.SubsystemBoolean("Arm", "LimitFinalExtension", () -> this.getIsAtExtensionLimit());
 	}
 
 	public void initDefaultCommand() {
@@ -50,7 +53,6 @@ public class ArmSubsystem extends Subsystem {
 		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitEncoderRetraction", this.isEncoderAtRetractionLimit());
 		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitSwitchExtension", this.getExtensionLimitSwitchValue());
 		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitSwitchRetraction", this.getelevatorRetractionLimitSwitchValue());
-		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitFinalExtension", this.getIsAtExtensionLimit());
 		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitFinalRetraction", this.getIsAtRetractionLimit());
 		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitSwitchAndEncoderAgreeExtended", this.encoderAndLimitsMatchExtended());
 		PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitSwitchAndEncoderAgreeRetracted", this.encoderAndLimitsMatchRetracted());
