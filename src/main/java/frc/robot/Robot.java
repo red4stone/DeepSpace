@@ -50,7 +50,6 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.LightSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ProgrammableLEDSubsystem;
-import frc.util.LoggerOverlord;
 import frc.util.OverrideSystem;
 
 /**
@@ -68,7 +67,6 @@ public class Robot extends TimedRobot {
 	public PowerDistributionPanel PDP = new PowerDistributionPanel();
 
 	Diagnostics diagnostics = new Diagnostics();
-	public static final LoggerOverlord LOGGER_OVERLORD = new LoggerOverlord(1f);
 
 	public static final Gamepad DRIVE_CONTROLLER = new Gamepad(0);
 	public static final Gamepad OPERATION_CONTROLLER = new Gamepad(3);

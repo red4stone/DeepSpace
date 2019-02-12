@@ -2,7 +2,6 @@ package frc.ravenhardware;
 
 import frc.robot.Calibrations;
 import frc.robot.Robot;
-import frc.util.LoggerOverlordLogID;
 import frc.util.PCDashboardDiagnostics;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -66,7 +65,6 @@ public class RavenTalon {
 			targetOutput = 0;
 		}
 
-		Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DriveTargetOutputPower, "target output power " + targetOutput);
 		this.setWithSlewRate(targetOutput);
 	}
 
