@@ -1,12 +1,12 @@
-package frc.gamepad;
+package frc.controls;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-public class OperationPanel2 {
+public class OperationPanel {
 	Joystick joystick;
 
-	public OperationPanel2(int port) {
+	public OperationPanel(int port) {
 		joystick = new Joystick(port);
 	}
 
@@ -22,26 +22,41 @@ public class OperationPanel2 {
 		int buttonNumber;
 
 		switch (button) {
-		case ARMEXTEND:
+		case ELEVATOROVERRIDEDOWN:
 			buttonNumber = 1;
 			break;
-		case ARMMIDRANGE:
+		case ELEVATOROVERRIDEUP:
 			buttonNumber = 2;
 			break;
-		case ARMRETRACT:
+		case ARMOVERRIDERETRACT:
 			buttonNumber = 3;
 			break;
-		case CARGOOVERRIDE:
+		case ARMOVERRIDEEXTEND:
 			buttonNumber = 4;
 			break;
-		case CARGOSPIT:
+		case CARGOSPITOVERRIDE:
 			buttonNumber = 5;
 			break;
-		case CARGODROP:
+		case BEAKRELEASEOVERRIDE:
 			buttonNumber = 6;
 			break;
-		case CARGOSUCK:
+		case CARGOORHATCHPANEL:
 			buttonNumber = 7;
+			break;
+		case SETLOCATIONCARGOSHIP:
+			buttonNumber = 8;
+			break;
+		case SETLOCATIONROCKET:
+			buttonNumber = 9;
+			break;
+		case ROCKETHEIGHTHIGH:
+			buttonNumber = 10;
+			break;
+		case ROCKETHEIGHTMID:
+			buttonNumber = 11;
+			break;
+		case ROCKETHEIGHTLOW:
+			buttonNumber = 12;
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid Button Code");

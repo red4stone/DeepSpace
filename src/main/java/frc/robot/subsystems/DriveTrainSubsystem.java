@@ -4,7 +4,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.gamepad.Gamepad;
+import frc.controls.Gamepad;
 import frc.ravenhardware.RavenTank;
 import frc.robot.Calibrations;
 import frc.robot.Robot;

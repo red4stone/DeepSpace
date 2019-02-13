@@ -1,4 +1,4 @@
-package frc.gamepad;
+package frc.controls;
 
 public enum AxisCode {
 	LEFTSTICKX,

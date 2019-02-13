@@ -1,6 +1,6 @@
 package frc.robot.commands.drivetrain;
 
-import frc.gamepad.AxisCode;
+import frc.controls.AxisCode;
 import frc.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
