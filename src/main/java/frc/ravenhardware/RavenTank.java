@@ -8,7 +8,6 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 
 public class RavenTank {
@@ -17,7 +16,6 @@ public class RavenTank {
 	public RavenEncoder leftRavenEncoder;
 	public RavenEncoder rightRavenEncoder;
 
-	// Gyro orientationGyro;
 	Timer gyroCooldownTimer;
 
 	AHRS orientationGyro = new AHRS(SPI.Port.kMXP);
@@ -55,13 +53,8 @@ public class RavenTank {
 
 	public boolean userControlOfCutPower = true;
 
-	RavenTalon driveLeft = new RavenTalon(RobotMap.leftDriveChannel, "MotorLeft", _slewRate, RobotMap.leftFollower1,
-			RobotMap.leftFollower2);
-	RavenTalon driveRight = new RavenTalon(RobotMap.rightDriveChannel, "MotorRight", _slewRate, RobotMap.rightFollower1,
-			RobotMap.rightFollower2);
-
-	protected Solenoid shiftToLowGearSolenoid;
-	protected Solenoid shiftToHighGearSolenoid;
+	RavenTalon driveLeft = new RavenTalon(RobotMap.leftDriveChannel, "MotorLeft", _slewRate, RobotMap.leftFollower1, RobotMap.leftFollower2);
+	RavenTalon driveRight = new RavenTalon(RobotMap.rightDriveChannel, "MotorRight", _slewRate, RobotMap.rightFollower1, RobotMap.rightFollower2);
 
 	protected boolean isInHighGear = Calibrations.driveTrainStartingIsInHighGear;
 
@@ -77,12 +70,8 @@ public class RavenTank {
 		Encoder leftWpiEncoder = new Encoder(RobotMap.leftDriveEncoder1, RobotMap.leftDriveEncoder2);
 		Encoder rightWpiEncoder = new Encoder(RobotMap.rightDriveEncoder1, RobotMap.rightDriveEncoder2);
 
-		leftRavenEncoder = new RavenEncoder(leftWpiEncoder, Calibrations.leftEncoderCyclesPerRevolution,
-				Calibrations.driveWheelDiameterInches, false);
-		rightRavenEncoder = new RavenEncoder(rightWpiEncoder, Calibrations.rightEncoderCyclesPerRevolution,
-				Calibrations.driveWheelDiameterInches, true);
-
-		// orientationGyro = new AnalogGyro(1);
+		leftRavenEncoder = new RavenEncoder(leftWpiEncoder, Calibrations.leftEncoderCyclesPerRevolution, Calibrations.driveWheelDiameterInches, false);
+		rightRavenEncoder = new RavenEncoder(rightWpiEncoder, Calibrations.rightEncoderCyclesPerRevolution, Calibrations.driveWheelDiameterInches, true);
 
 		gyroCooldownTimer = new Timer();
 
@@ -152,10 +141,6 @@ public class RavenTank {
 		rightY = deadband(rightY);
 		rightX = deadband(rightX);
 
-		// System.out.println("Navx: " + orientationGyro.getAngle());
-
-		// this.setSlewRate(Math.abs(this.calibrationStick.getZ() * 2));
-
 		switch (driveMode) {
 		case Calibrations.bulldozerTank:
 			bulldozerTank(left, rightY);
@@ -204,11 +189,6 @@ public class RavenTank {
 
 		this.driveLeftSide(leftFinal);
 		this.driveRightSide(rightFinal);
-
-		if (detectCollisions() == true) {
-			shiftToLowGear();
-			// shiftedToLowGearLighting.turnOnForSeconds(3);
-		}
 	}
 
 	public boolean detectCollisions() {
@@ -267,18 +247,6 @@ public class RavenTank {
 		// System.out.println("Driving Right At " + magnitude);
 	}
 
-	public void shiftToLowGear() {
-		this.isInHighGear = false;
-		shiftToLowGearSolenoid.set(true);
-		shiftToHighGearSolenoid.set(false);
-	}
-
-	public void shiftToHighGear() {
-		this.isInHighGear = true;
-		shiftToHighGearSolenoid.set(true);
-		shiftToLowGearSolenoid.set(false);
-	}
-
 	public double getScaledTurnFromTranslation(double translation, double turn) {
 		double turnScaleReduction = Calibrations.translationMaxTurnScaling * Math.abs(translation);
 		double turnCoefficient = 1 - turnScaleReduction;
@@ -291,24 +259,11 @@ public class RavenTank {
 
 	}
 
-	/*
-	 * public int getRightDriveEncoder(){
-	 * System.out.println(rightEncoder.getNetInchesTraveled()); return
-	 * rightEncoder.getCycles(); }
-	 * 
-	 * public int getLeftDriveEncoder(){
-	 * System.out.println(leftEncoder.getNetInchesTraveled()); return
-	 * leftEncoder.getCycles(); }
-	 */
 	public double getDriveGyro() {
 		// System.out.println("Gyro angle: " + Math.round(orientationGyro.getAngle()) +
 		// " Gyro mode: " + gyroMode);
 		return orientationGyro.getAngle();
 	}
-
-	/*
-	 * public void resetDriveGyro() { orientationGyro.reset(); }
-	 */
 
 	public double getGyroTargetHeading() {
 		return this.gyroTargetHeading;
@@ -538,9 +493,9 @@ public class RavenTank {
 
 	public double getNetInchesTraveled() {
 		double leftInches = this.leftRavenEncoder.getNetInchesTraveled();
-		// double rightInches = this.rightRavenEncoder.getNetInchesTraveled();
-		double netInchesTraveled = leftInches;
-		// double netInchesTraveled = rightInches;
+		double rightInches = this.rightRavenEncoder.getNetInchesTraveled();
+		double netInchesTraveled = (leftInches * rightInches)/2;
+		
 		return netInchesTraveled;
 	}
 

@@ -37,25 +37,25 @@ public class OperationPanel {
 		case CARGOSPITOVERRIDE:
 			buttonNumber = 5;
 			break;
-		case CARGOSUCKOVERRIDE:
+		case BEAKRELEASEOVERRIDE:
 			buttonNumber = 6;
 			break;
-		case BEAKCAPTUREOVERRIDE:
+		case CARGOORHATCHPANEL:
 			buttonNumber = 7;
 			break;
-		case BEAKRELEASEOVERRIDE:
+		case SETLOCATIONCARGOSHIP:
 			buttonNumber = 8;
 			break;
-		case CARGOORHATCHPANEL:
+		case SETLOCATIONROCKET:
 			buttonNumber = 9;
 			break;
-		case SETLOCATIONCARGOSHIP:
+		case ROCKETHEIGHTHIGH:
 			buttonNumber = 10;
 			break;
-		case SETLOCATIONROCKET:
+		case ROCKETHEIGHTMID:
 			buttonNumber = 11;
 			break;
-		case ROCKETHEIGHTHIGH:
+		case ROCKETHEIGHTLOW:
 			buttonNumber = 12;
 			break;
 		default:

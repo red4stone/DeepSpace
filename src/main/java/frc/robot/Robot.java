@@ -17,27 +17,27 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.controls.AxisCode;
 import frc.controls.ButtonCode;
 import frc.controls.Gamepad;
 import frc.controls.OperationPanel;
-import frc.controls.OperationPanel2;
 import frc.ravenhardware.RavenLighting;
 import frc.robot.commands.LED.LEDBlinkFor2SecondsCommand;
-import frc.robot.commands.arm.ArmExtendFullyCommand;
 import frc.robot.commands.arm.ArmExtendWhileHeldCommand;
-import frc.robot.commands.arm.ArmMoveToHeightCommand;
-import frc.robot.commands.arm.ArmRetractFullyCommand;
 import frc.robot.commands.arm.ArmRetractWhileHeldCommand;
+import frc.robot.commands.automatedscoring.SetAutomatedCommand;
+import frc.robot.commands.automatedscoring.SetCargoOrHatchPanel;
+import frc.robot.commands.automatedscoring.SetLocationCargoShipCommand;
+import frc.robot.commands.automatedscoring.SetLocationRocketCommand;
+import frc.robot.commands.automatedscoring.SetRocketHeightHighCommand;
+import frc.robot.commands.automatedscoring.SetRocketHeightLowCommand;
+import frc.robot.commands.automatedscoring.SetRocketHeightMidCommand;
+import frc.robot.commands.beak.BeakReleaseHatchPanelCommand;
 import frc.robot.commands.cargowheel.CargoWheelSpitCommand;
-import frc.robot.commands.cargowheel.CargoWheelSuckCommand;
-import frc.robot.commands.cargowheel.CargoWheelSuckOrSpitCommand;
 import frc.robot.commands.drivetrain.SetCutPowerFalse;
 import frc.robot.commands.drivetrain.SetCutPowerTrue;
 import frc.robot.commands.drivetrain.SetGyroTargetHeading;
-import frc.robot.commands.elevator.ElevatorExtendFullyCommand;
 import frc.robot.commands.elevator.ElevatorExtendWhileHeldCommand;
-import frc.robot.commands.elevator.ElevatorMoveToHeightCommand;
-import frc.robot.commands.elevator.ElevatorRetractFullyCommand;
 import frc.robot.commands.elevator.ElevatorRetractWhileHeldCommand;
 import frc.robot.commands.misc.SetOverride1Command;
 import frc.robot.subsystems.ArmSubsystem;
@@ -50,6 +50,7 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.LightSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ProgrammableLEDSubsystem;
+import frc.robot.subsystems.SetCommandSubsystem;
 import frc.util.LoggerOverlord;
 import frc.util.OverrideSystem;
 
@@ -73,7 +74,6 @@ public class Robot extends TimedRobot {
 	public static final Gamepad DRIVE_CONTROLLER = new Gamepad(0);
 	public static final Gamepad OPERATION_CONTROLLER = new Gamepad(3);
 	public static final OperationPanel OPERATION_PANEL = new OperationPanel(1);
-	public static final OperationPanel2 OPERATION_PANEL2 = new OperationPanel2(2);
 
 	public static final ArmSubsystem ARM_SUBSYSTEM = new ArmSubsystem();
 	public static final BeakSubsystem BEAK_SUBSYSTEM = new BeakSubsystem();
@@ -85,6 +85,7 @@ public class Robot extends TimedRobot {
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
 	public static final LimelightSubsystem LIMELIGHT_SUBSYSTEM = new LimelightSubsystem();
 	public static final ProgrammableLEDSubsystem LED_SUBSYSTEM = new ProgrammableLEDSubsystem();
+	public static final SetCommandSubsystem SET_COMMAND_SUBSYSTEM = new SetCommandSubsystem();
 
 	public static final Relay HAS_HATCH_PANEL_LEDS_RELAY = new Relay(RobotMap.hasHatchPanelLEDLightRelay);
 	public static final Relay HAS_CARGO_LEDS_RELAY = new Relay(RobotMap.hasCargoLEDLightRelay);
@@ -349,8 +350,8 @@ public class Robot extends TimedRobot {
 		DRIVE_CONTROLLER.getButton(ButtonCode.X).whenPressed(new SetGyroTargetHeading(270));
 		DRIVE_CONTROLLER.getButton(ButtonCode.B).whenPressed(new SetGyroTargetHeading(90));
 		DRIVE_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new SetGyroTargetHeading(0));
-		DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new SetCutPowerTrue());// was new SetGyroTargetHeading(180)
-		DRIVE_CONTROLLER.getButton(ButtonCode.A).whenReleased(new SetCutPowerFalse());
+		DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new SetCutPowerTrue());
+		DRIVE_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whenPressed(new SetAutomatedCommand());
 	}
 
 	public void setupOperationPanel() {
@@ -371,12 +372,17 @@ public class Robot extends TimedRobot {
 		OPERATION_PANEL.getButton(ButtonCode.ARMOVERRIDERETRACT).whenPressed(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ARM_EXTEND, true));
 		OPERATION_PANEL.getButton(ButtonCode.ARMOVERRIDERETRACT).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ARM_EXTEND, false));
 
-		OPERATION_PANEL.getButton(ButtonCode.ARMOVERRIDERETRACT).whileHeld(new ArmRetractWhileHeldCommand());
-		OPERATION_PANEL.getButton(ButtonCode.ARMOVERRIDERETRACT).whenPressed(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ARM_EXTEND, true));
-		OPERATION_PANEL.getButton(ButtonCode.ARMOVERRIDERETRACT).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ARM_EXTEND, false));
+		OPERATION_PANEL.getButton(ButtonCode.CARGOSPITOVERRIDE).whileHeld(new CargoWheelSpitCommand());
+		OPERATION_PANEL.getButton(ButtonCode.BEAKRELEASEOVERRIDE).whenPressed(new BeakReleaseHatchPanelCommand());
 
-
+		OPERATION_PANEL.getButton(ButtonCode.CARGOORHATCHPANEL).whenPressed(new SetCargoOrHatchPanel());
+		OPERATION_PANEL.getButton(ButtonCode.SETLOCATIONCARGOSHIP).whenPressed(new SetLocationCargoShipCommand());
+		OPERATION_PANEL.getButton(ButtonCode.SETLOCATIONROCKET).whenPressed(new SetLocationRocketCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ROCKETHEIGHTHIGH).whenPressed(new SetRocketHeightHighCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ROCKETHEIGHTMID).whenPressed(new SetRocketHeightMidCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ROCKETHEIGHTLOW).whenPressed(new SetRocketHeightLowCommand());
 	}
+	
 
 	/**
 	 * This function is called periodically during test mode.
